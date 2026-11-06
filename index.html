@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Paper Looks Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600&family=Inter+Tight:wght@400;500;600&display=swap">
+<style>
+/* Layout: a proof table. Each look is one row of its printed pages on a cool grey desk, with the call to make right under it. */
+:root {
+  --desk: #e9ecef;
+  --sheet: #ffffff;
+  --ink: #1b1f24;
+  --ink-soft: #4d5560;
+  --rule: #c5cbd2;
+  --mark: #1f4fd1;
+  --mark-ink: #ffffff;
+  --keep: #1d6b3a;
+  --drop: #a1261b;
+  --serif: "Literata", Georgia, "Times New Roman", serif;
+  --sans: "Inter Tight", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --desk: #15181c; --sheet: #1f242a; --ink: #e9ecef; --ink-soft: #a7b0ba; --rule: #343b44;
+    --mark: #7ea2ff; --mark-ink: #0d1530; --keep: #6fcf8f; --drop: #ff8a7d; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --desk: #15181c; --sheet: #1f242a; --ink: #e9ecef; --ink-soft: #a7b0ba; --rule: #343b44;
+  --mark: #7ea2ff; --mark-ink: #0d1530; --keep: #6fcf8f; --drop: #ff8a7d; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--desk); color: var(--ink); font: 16px/1.5 var(--sans); }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+.who { display: flex; flex-direction: column; gap: 4px; max-width: 320px; margin-top: 4px; }
+.who label { font-weight: 600; }
+.who input { font: 16px var(--sans); min-height: 44px; padding: 0 12px; border: 1px solid var(--rule); border-radius: 10px; background: var(--sheet); color: var(--ink); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--sheet); }
+.wrap { max-width: 1240px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--sheet); border-bottom: 1px solid var(--rule); }
+.bar .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; padding-block: 10px; }
+.bar h1 { font: 600 20px/1.2 var(--serif); margin: 0; text-wrap: balance; }
+.progress { color: var(--ink-soft); font-variant-numeric: tabular-nums; margin: 0; }
+.bar .spacer { flex: 1; }
+.btn { font: 600 16px var(--sans); min-height: 44px; padding: 0 18px; border-radius: 10px; border: 1px solid var(--mark); background: var(--mark); color: var(--mark-ink); cursor: pointer; }
+.btn:focus-visible, .page:focus-visible, input:focus-visible, textarea:focus-visible, .nav a:focus-visible { outline: 3px solid var(--mark); outline-offset: 2px; }
+.intro { padding-block: 28px 8px; max-width: 68ch; }
+.intro p { margin: 0 0 10px; color: var(--ink-soft); }
+.intro strong { color: var(--ink); }
+.nav { display: flex; flex-wrap: wrap; gap: 6px 18px; padding-block: 8px 4px; }
+.nav a { color: var(--ink); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--rule); }
+.nav .count { color: var(--ink-soft); font-weight: 400; font-variant-numeric: tabular-nums; }
+h2.group { font: 600 28px/1.2 var(--serif); margin: 48px 0 0; padding-top: 14px; border-top: 3px solid var(--ink); scroll-margin-top: 80px; }
+.look { padding-block: 24px 28px; border-bottom: 1px solid var(--rule); scroll-margin-top: 72px; }
+.look-head { max-width: 72ch; }
+.look-head h3 { font: 600 22px/1.25 var(--serif); margin: 0 0 4px; }
+.line { margin: 0; color: var(--ink-soft); }
+.cw { margin: 4px 0 0; color: var(--ink-soft); font-size: 15px; }
+.month { margin-top: 16px; }
+.month-label { margin: 0 0 6px; font-weight: 600; font-size: 15px; letter-spacing: .02em; color: var(--ink-soft); }
+.pages { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 6px; }
+.page { flex: 0 0 auto; width: 204px; padding: 0; border: 1px solid var(--rule); background: #fff; cursor: zoom-in; position: relative; }
+.page img { display: block; width: 100%; height: auto; max-width: 100%; }
+.page span { position: absolute; right: 6px; bottom: 6px; background: var(--sheet); color: var(--ink-soft); font: 500 13px var(--sans); padding: 1px 6px; border-radius: 4px; border: 1px solid var(--rule); }
+.verdict { margin: 18px 0 0; padding: 14px 0 0; border: 0; border-top: 1px solid var(--rule); max-width: 720px; min-width: 0; }
+.verdict legend { font-weight: 600; padding: 0; float: left; width: 100%; margin-bottom: 8px; }
+.choices { clear: both; display: flex; flex-wrap: wrap; gap: 6px 22px; }
+.choices label { display: flex; align-items: center; gap: 8px; min-height: 44px; cursor: pointer; }
+.choices input { width: 20px; height: 20px; accent-color: var(--mark); margin: 0; }
+.note-label { display: block; margin-top: 6px; font-size: 15px; color: var(--ink-soft); }
+textarea { width: 100%; margin-top: 4px; font: 16px/1.4 var(--sans); color: var(--ink); background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 10px 12px; resize: vertical; }
+.look[data-state="Keep"] .look-head h3::after { content: "  Keep"; color: var(--keep); font: 600 15px var(--sans); }
+.look[data-state="Change"] .look-head h3::after { content: "  Change"; color: var(--mark); font: 600 15px var(--sans); }
+.look[data-state="Drop"] .look-head h3::after { content: "  Drop"; color: var(--drop); font: 600 15px var(--sans); }
+.foot { padding-block: 32px 48px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.out { width: 100%; min-height: 160px; }
+dialog.zoom { padding: 0; border: 0; background: transparent; max-width: 100vw; max-height: 100vh; width: 100%; height: 100%; }
+dialog.zoom::backdrop { background: rgba(10, 12, 15, .88); }
+.zoom-inner { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: max(12px, env(safe-area-inset-top, 0px)) max(12px, env(safe-area-inset-right, 0px)) max(12px, env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px)); }
+.zoom img { max-width: 100%; max-height: calc(100% - 64px); width: auto; height: auto; background: #fff; }
+.zoom-ctl { display: flex; gap: 10px; align-items: center; color: #e9ecef; }
+.zoom-ctl button { font: 600 16px var(--sans); min-height: 44px; min-width: 44px; padding: 0 14px; border-radius: 10px; border: 1px solid #8a939d; background: #1f242a; color: #e9ecef; cursor: pointer; }
+.zoom-ctl p { margin: 0; min-width: 12ch; text-align: center; font-variant-numeric: tabular-nums; }
+@media (max-width: 600px) { .page { width: 150px; } .bar h1 { font-size: 18px; } }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+
+<div class="bar"><div class="wrap">
+<h1>Paper looks review</h1>
+<p class="progress" id="progress">0 of 25 decided</p>
+<span class="spacer"></span>
+<button class="btn" type="button" id="copy-top">Copy my notes</button>
+</div></div>
+
+<main class="wrap">
+<section class="intro">
+<p><strong>Thank you for helping.</strong> We're making a printed family newspaper that's mailed to a grandparent each month. Families add photos and short notes, and the paper is laid out for them in the look they choose. Here are all 25 looks. Each shows the same two made-up months: 3 posts (2 pages) and 6 posts (3 or 4 pages). The name and address at the top left is where the grandparent's address prints for mailing.</p>
+<p>Tap any page to see it large. For each look, pick Keep, Change or Drop, and add a note if something looks off or you love it. Your picks are saved in this browser, so you can come back later. When you're done, press <strong>Copy my notes</strong> and send the result to whoever sent you this link, by text or email.</p>
+<div class="who"><label for="reviewer">Your name</label><input id="reviewer" type="text" autocomplete="name" placeholder="So we know whose notes these are"></div>
+<nav class="nav" aria-label="Jump to a group"><a href="#newspapers">Newspapers <span class="count">6</span></a><a href="#magazines">Magazines <span class="count">3</span></a><a href="#letters-and-journals">Letters and journals <span class="count">3</span></a><a href="#home-and-garden">Home and garden <span class="count">5</span></a><a href="#bold-and-colorful">Bold and colorful <span class="count">3</span></a><a href="#clean-and-modern">Clean and modern <span class="count">5</span></a></nav>
+</section>
+<h2 class="group" id="newspapers">Newspapers</h2>
+<article class="look" id="classic" data-key="classic" data-label="Classic newspaper">
+<header class="look-head"><h3>Classic newspaper</h3><p class="line">An orderly newspaper: headlines beside each photo, and a page-by-page list of who is inside.</p></header>
+<div class="month"><p class="month-label">3 posts &middot; 2 pages</p><div class="pages"><button class="page" type="button" data-full="img/classic-3-p1.jpg" aria-label="Classic newspaper, 3 posts, page 1: open large"><img src="img/classic-3-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/classic-3-p2.jpg" aria-label="Classic newspaper, 3 posts, page 2: open large"><img src="img/classic-3-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button></div></div><div class="month"><p class="month-label">6 posts &middot; 4 pages</p><div class="pages"><button class="page" type="button" data-full="img/classic-6-p1.jpg" aria-label="Classic newspaper, 6 posts, page 1: open large"><img src="img/classic-6-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/classic-6-p2.jpg" aria-label="Classic newspaper, 6 posts, page 2: open large"><img src="img/classic-6-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button><button class="page" type="button" data-full="img/classic-6-p3.jpg" aria-label="Classic newspaper, 6 posts, page 3: open large"><img src="img/classic-6-p3.jpg" alt="" loading="lazy" width="408" height="528"><span>p3</span></button><button class="page" type="button" data-full="img/classic-6-p4.jpg" aria-label="Classic newspaper, 6 posts, page 4: open large"><img src="img/classic-6-p4.jpg" alt="" loading="lazy" width="408" height="528"><span>p4</span></button></div></div>
+<fieldset class="verdict"><legend>Your call on Classic newspaper</legend>
+<div class="choices">
+<label><input type="radio" name="v-classic" id="v-classic-keep" value="Keep"> Keep as is</label>
+<label><input type="radio" name="v-classic" id="v-classic-change" value="Change"> Change something</label>
+<label><input type="radio" name="v-classic" id="v-classic-drop" value="Drop"> Drop it</label>
+</div>
+<label class="note-label" for="n-classic">What to change (optional)</label>
+<textarea id="n-classic" rows="2" placeholder="For example: headline font too heavy, name block colour"></textarea>
+</fieldset>
+</article>
+<article class="look" id="smalltown-weekly" data-key="smalltown-weekly" data-label="Small-town weekly">
+<header class="look-head"><h3>Small-town weekly</h3><p class="line">A sturdy hometown newspaper: strong slab headlines, clear rules and a boxed contents list.</p><p class="cw">Also in: navy, forest</p></header>
+<div class="month"><p class="month-label">3 posts &middot; 2 pages</p><div class="pages"><button class="page" type="button" data-full="img/smalltown-weekly-3-p1.jpg" aria-label="Small-town weekly, 3 posts, page 1: open large"><img src="img/smalltown-weekly-3-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/smalltown-weekly-3-p2.jpg" aria-label="Small-town weekly, 3 posts, page 2: open large"><img src="img/smalltown-weekly-3-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button></div></div><div class="month"><p class="month-label">6 posts &middot; 4 pages</p><div class="pages"><button class="page" type="button" data-full="img/smalltown-weekly-6-p1.jpg" aria-label="Small-town weekly, 6 posts, page 1: open large"><img src="img/smalltown-weekly-6-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/smalltown-weekly-6-p2.jpg" aria-label="Small-town weekly, 6 posts, page 2: open large"><img src="img/smalltown-weekly-6-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button><button class="page" type="button" data-full="img/smalltown-weekly-6-p3.jpg" aria-label="Small-town weekly, 6 posts, page 3: open large"><img src="img/smalltown-weekly-6-p3.jpg" alt="" loading="lazy" width="408" height="528"><span>p3</span></button><button class="page" type="button" data-full="img/smalltown-weekly-6-p4.jpg" aria-label="Small-town weekly, 6 posts, page 4: open large"><img src="img/smalltown-weekly-6-p4.jpg" alt="" loading="lazy" width="408" height="528"><span>p4</span></button></div></div>
+<fieldset class="verdict"><legend>Your call on Small-town weekly</legend>
+<div class="choices">
+<label><input type="radio" name="v-smalltown-weekly" id="v-smalltown-weekly-keep" value="Keep"> Keep as is</label>
+<label><input type="radio" name="v-smalltown-weekly" id="v-smalltown-weekly-change" value="Change"> Change something</label>
+<label><input type="radio" name="v-smalltown-weekly" id="v-smalltown-weekly-drop" value="Drop"> Drop it</label>
+</div>
+<label class="note-label" for="n-smalltown-weekly">What to change (optional)</label>
+<textarea id="n-smalltown-weekly" rows="2" placeholder="For example: headline font too heavy, name block colour"></textarea>
+</fieldset>
+</article>
+<article class="look" id="old-gazette" data-key="old-gazette" data-label="Old gazette">
+<header class="look-head"><h3>Old gazette</h3><p class="line">An old-fashioned newspaper with double rules and a classic serif.</p><p class="cw">Also in: sepia, burgundy</p></header>
+<div class="month"><p class="month-label">3 posts &middot; 2 pages</p><div class="pages"><button class="page" type="button" data-full="img/old-gazette-3-p1.jpg" aria-label="Old gazette, 3 posts, page 1: open large"><img src="img/old-gazette-3-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/old-gazette-3-p2.jpg" aria-label="Old gazette, 3 posts, page 2: open large"><img src="img/old-gazette-3-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button></div></div><div class="month"><p class="month-label">6 posts &middot; 4 pages</p><div class="pages"><button class="page" type="button" data-full="img/old-gazette-6-p1.jpg" aria-label="Old gazette, 6 posts, page 1: open large"><img src="img/old-gazette-6-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/old-gazette-6-p2.jpg" aria-label="Old gazette, 6 posts, page 2: open large"><img src="img/old-gazette-6-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button><button class="page" type="button" data-full="img/old-gazette-6-p3.jpg" aria-label="Old gazette, 6 posts, page 3: open large"><img src="img/old-gazette-6-p3.jpg" alt="" loading="lazy" width="408" height="528"><span>p3</span></button><button class="page" type="button" data-full="img/old-gazette-6-p4.jpg" aria-label="Old gazette, 6 posts, page 4: open large"><img src="img/old-gazette-6-p4.jpg" alt="" loading="lazy" width="408" height="528"><span>p4</span></button></div></div>
+<fieldset class="verdict"><legend>Your call on Old gazette</legend>
+<div class="choices">
+<label><input type="radio" name="v-old-gazette" id="v-old-gazette-keep" value="Keep"> Keep as is</label>
+<label><input type="radio" name="v-old-gazette" id="v-old-gazette-change" value="Change"> Change something</label>
+<label><input type="radio" name="v-old-gazette" id="v-old-gazette-drop" value="Drop"> Drop it</label>
+</div>
+<label class="note-label" for="n-old-gazette">What to change (optional)</label>
+<textarea id="n-old-gazette" rows="2" placeholder="For example: headline font too heavy, name block colour"></textarea>
+</fieldset>
+</article>
+<article class="look" id="front-page" data-key="front-page" data-label="Front page">
+<header class="look-head"><h3>Front page</h3><p class="line">A big-city front page: a blackletter name, stacked headlines and a ruled ear box.</p></header>
+<div class="month"><p class="month-label">3 posts &middot; 2 pages</p><div class="pages"><button class="page" type="button" data-full="img/front-page-3-p1.jpg" aria-label="Front page, 3 posts, page 1: open large"><img src="img/front-page-3-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/front-page-3-p2.jpg" aria-label="Front page, 3 posts, page 2: open large"><img src="img/front-page-3-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button></div></div><div class="month"><p class="month-label">6 posts &middot; 4 pages</p><div class="pages"><button class="page" type="button" data-full="img/front-page-6-p1.jpg" aria-label="Front page, 6 posts, page 1: open large"><img src="img/front-page-6-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/front-page-6-p2.jpg" aria-label="Front page, 6 posts, page 2: open large"><img src="img/front-page-6-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button><button class="page" type="button" data-full="img/front-page-6-p3.jpg" aria-label="Front page, 6 posts, page 3: open large"><img src="img/front-page-6-p3.jpg" alt="" loading="lazy" width="408" height="528"><span>p3</span></button><button class="page" type="button" data-full="img/front-page-6-p4.jpg" aria-label="Front page, 6 posts, page 4: open large"><img src="img/front-page-6-p4.jpg" alt="" loading="lazy" width="408" height="528"><span>p4</span></button></div></div>
+<fieldset class="verdict"><legend>Your call on Front page</legend>
+<div class="choices">
+<label><input type="radio" name="v-front-page" id="v-front-page-keep" value="Keep"> Keep as is</label>
+<label><input type="radio" name="v-front-page" id="v-front-page-change" value="Change"> Change something</label>
+<label><input type="radio" name="v-front-page" id="v-front-page-drop" value="Drop"> Drop it</label>
+</div>
+<label class="note-label" for="n-front-page">What to change (optional)</label>
+<textarea id="n-front-page" rows="2" placeholder="For example: headline font too heavy, name block colour"></textarea>
+</fieldset>
+</article>
+<article class="look" id="society-page" data-key="society-page" data-label="Society page">
+<header class="look-head"><h3>Society page</h3><p class="line">The society page: a fine script name over a lace edge, and the news of who visited whom.</p></header>
+<div class="month"><p class="month-label">3 posts &middot; 2 pages</p><div class="pages"><button class="page" type="button" data-full="img/society-page-3-p1.jpg" aria-label="Society page, 3 posts, page 1: open large"><img src="img/society-page-3-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/society-page-3-p2.jpg" aria-label="Society page, 3 posts, page 2: open large"><img src="img/society-page-3-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button></div></div><div class="month"><p class="month-label">6 posts &middot; 4 pages</p><div class="pages"><button class="page" type="button" data-full="img/society-page-6-p1.jpg" aria-label="Society page, 6 posts, page 1: open large"><img src="img/society-page-6-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/society-page-6-p2.jpg" aria-label="Society page, 6 posts, page 2: open large"><img src="img/society-page-6-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button><button class="page" type="button" data-full="img/society-page-6-p3.jpg" aria-label="Society page, 6 posts, page 3: open large"><img src="img/society-page-6-p3.jpg" alt="" loading="lazy" width="408" height="528"><span>p3</span></button><button class="page" type="button" data-full="img/society-page-6-p4.jpg" aria-label="Society page, 6 posts, page 4: open large"><img src="img/society-page-6-p4.jpg" alt="" loading="lazy" width="408" height="528"><span>p4</span></button></div></div>
+<fieldset class="verdict"><legend>Your call on Society page</legend>
+<div class="choices">
+<label><input type="radio" name="v-society-page" id="v-society-page-keep" value="Keep"> Keep as is</label>
+<label><input type="radio" name="v-society-page" id="v-society-page-change" value="Change"> Change something</label>
+<label><input type="radio" name="v-society-page" id="v-society-page-drop" value="Drop"> Drop it</label>
+</div>
+<label class="note-label" for="n-society-page">What to change (optional)</label>
+<textarea id="n-society-page" rows="2" placeholder="For example: headline font too heavy, name block colour"></textarea>
+</fieldset>
+</article>
+<article class="look" id="sports-page" data-key="sports-page" data-label="Sports page">
+<header class="look-head"><h3>Sports page</h3><p class="line">The sports page: big condensed headlines and green and red varsity stripes.</p></header>
+<div class="month"><p class="month-label">3 posts &middot; 2 pages</p><div class="pages"><button class="page" type="button" data-full="img/sports-page-3-p1.jpg" aria-label="Sports page, 3 posts, page 1: open large"><img src="img/sports-page-3-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/sports-page-3-p2.jpg" aria-label="Sports page, 3 posts, page 2: open large"><img src="img/sports-page-3-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button></div></div><div class="month"><p class="month-label">6 posts &middot; 4 pages</p><div class="pages"><button class="page" type="button" data-full="img/sports-page-6-p1.jpg" aria-label="Sports page, 6 posts, page 1: open large"><img src="img/sports-page-6-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/sports-page-6-p2.jpg" aria-label="Sports page, 6 posts, page 2: open large"><img src="img/sports-page-6-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button><button class="page" type="button" data-full="img/sports-page-6-p3.jpg" aria-label="Sports page, 6 posts, page 3: open large"><img src="img/sports-page-6-p3.jpg" alt="" loading="lazy" width="408" height="528"><span>p3</span></button><button class="page" type="button" data-full="img/sports-page-6-p4.jpg" aria-label="Sports page, 6 posts, page 4: open large"><img src="img/sports-page-6-p4.jpg" alt="" loading="lazy" width="408" height="528"><span>p4</span></button></div></div>
+<fieldset class="verdict"><legend>Your call on Sports page</legend>
+<div class="choices">
+<label><input type="radio" name="v-sports-page" id="v-sports-page-keep" value="Keep"> Keep as is</label>
+<label><input type="radio" name="v-sports-page" id="v-sports-page-change" value="Change"> Change something</label>
+<label><input type="radio" name="v-sports-page" id="v-sports-page-drop" value="Drop"> Drop it</label>
+</div>
+<label class="note-label" for="n-sports-page">What to change (optional)</label>
+<textarea id="n-sports-page" rows="2" placeholder="For example: headline font too heavy, name block colour"></textarea>
+</fieldset>
+</article>
+<h2 class="group" id="magazines">Magazines</h2>
+<article class="look" id="keepsake" data-key="keepsake" data-label="Keepsake magazine">
+<header class="look-head"><h3>Keepsake magazine</h3><p class="line">A calm, photo-led magazine: one big photo on every page and plenty of room around it.</p></header>
+<div class="month"><p class="month-label">3 posts &middot; 2 pages</p><div class="pages"><button class="page" type="button" data-full="img/keepsake-3-p1.jpg" aria-label="Keepsake magazine, 3 posts, page 1: open large"><img src="img/keepsake-3-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/keepsake-3-p2.jpg" aria-label="Keepsake magazine, 3 posts, page 2: open large"><img src="img/keepsake-3-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button></div></div><div class="month"><p class="month-label">6 posts &middot; 3 pages</p><div class="pages"><button class="page" type="button" data-full="img/keepsake-6-p1.jpg" aria-label="Keepsake magazine, 6 posts, page 1: open large"><img src="img/keepsake-6-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/keepsake-6-p2.jpg" aria-label="Keepsake magazine, 6 posts, page 2: open large"><img src="img/keepsake-6-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button><button class="page" type="button" data-full="img/keepsake-6-p3.jpg" aria-label="Keepsake magazine, 6 posts, page 3: open large"><img src="img/keepsake-6-p3.jpg" alt="" loading="lazy" width="408" height="528"><span>p3</span></button></div></div>
+<fieldset class="verdict"><legend>Your call on Keepsake magazine</legend>
+<div class="choices">
+<label><input type="radio" name="v-keepsake" id="v-keepsake-keep" value="Keep"> Keep as is</label>
+<label><input type="radio" name="v-keepsake" id="v-keepsake-change" value="Change"> Change something</label>
+<label><input type="radio" name="v-keepsake" id="v-keepsake-drop" value="Drop"> Drop it</label>
+</div>
+<label class="note-label" for="n-keepsake">What to change (optional)</label>
+<textarea id="n-keepsake" rows="2" placeholder="For example: headline font too heavy, name block colour"></textarea>
+</fieldset>
+</article>
+<article class="look" id="nordic" data-key="nordic" data-label="Nordic">
+<header class="look-head"><h3>Nordic</h3><p class="line">Quiet and spacious: clean type and lots of white.</p><p class="cw">Also in: pine, lingonberry</p></header>
+<div class="month"><p class="month-label">3 posts &middot; 2 pages</p><div class="pages"><button class="page" type="button" data-full="img/nordic-3-p1.jpg" aria-label="Nordic, 3 posts, page 1: open large"><img src="img/nordic-3-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/nordic-3-p2.jpg" aria-label="Nordic, 3 posts, page 2: open large"><img src="img/nordic-3-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button></div></div><div class="month"><p class="month-label">6 posts &middot; 3 pages</p><div class="pages"><button class="page" type="button" data-full="img/nordic-6-p1.jpg" aria-label="Nordic, 6 posts, page 1: open large"><img src="img/nordic-6-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/nordic-6-p2.jpg" aria-label="Nordic, 6 posts, page 2: open large"><img src="img/nordic-6-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button><button class="page" type="button" data-full="img/nordic-6-p3.jpg" aria-label="Nordic, 6 posts, page 3: open large"><img src="img/nordic-6-p3.jpg" alt="" loading="lazy" width="408" height="528"><span>p3</span></button></div></div>
+<fieldset class="verdict"><legend>Your call on Nordic</legend>
+<div class="choices">
+<label><input type="radio" name="v-nordic" id="v-nordic-keep" value="Keep"> Keep as is</label>
+<label><input type="radio" name="v-nordic" id="v-nordic-change" value="Change"> Change something</label>
+<label><input type="radio" name="v-nordic" id="v-nordic-drop" value="Drop"> Drop it</label>
+</div>
+<label class="note-label" for="n-nordic">What to change (optional)</label>
+<textarea id="n-nordic" rows="2" placeholder="For example: headline font too heavy, name block colour"></textarea>
+</fieldset>
+</article>
+<article class="look" id="art-deco" data-key="art-deco" data-label="Art deco">
+<header class="look-head"><h3>Art deco</h3><p class="line">Black and gold, with a deco nameplate and sturdy headlines.</p><p class="cw">Also in: navy and silver, emerald and gold</p></header>
+<div class="month"><p class="month-label">3 posts &middot; 2 pages</p><div class="pages"><button class="page" type="button" data-full="img/art-deco-3-p1.jpg" aria-label="Art deco, 3 posts, page 1: open large"><img src="img/art-deco-3-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/art-deco-3-p2.jpg" aria-label="Art deco, 3 posts, page 2: open large"><img src="img/art-deco-3-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button></div></div><div class="month"><p class="month-label">6 posts &middot; 3 pages</p><div class="pages"><button class="page" type="button" data-full="img/art-deco-6-p1.jpg" aria-label="Art deco, 6 posts, page 1: open large"><img src="img/art-deco-6-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/art-deco-6-p2.jpg" aria-label="Art deco, 6 posts, page 2: open large"><img src="img/art-deco-6-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button><button class="page" type="button" data-full="img/art-deco-6-p3.jpg" aria-label="Art deco, 6 posts, page 3: open large"><img src="img/art-deco-6-p3.jpg" alt="" loading="lazy" width="408" height="528"><span>p3</span></button></div></div>
+<fieldset class="verdict"><legend>Your call on Art deco</legend>
+<div class="choices">
+<label><input type="radio" name="v-art-deco" id="v-art-deco-keep" value="Keep"> Keep as is</label>
+<label><input type="radio" name="v-art-deco" id="v-art-deco-change" value="Change"> Change something</label>
+<label><input type="radio" name="v-art-deco" id="v-art-deco-drop" value="Drop"> Drop it</label>
+</div>
+<label class="note-label" for="n-art-deco">What to change (optional)</label>
+<textarea id="n-art-deco" rows="2" placeholder="For example: headline font too heavy, name block colour"></textarea>
+</fieldset>
+</article>
+<h2 class="group" id="letters-and-journals">Letters and journals</h2>
+<article class="look" id="family-letter" data-key="family-letter" data-label="Family letter">
+<header class="look-head"><h3>Family letter</h3><p class="line">Reads like a letter from home: a warm serif under a letterhead.</p><p class="cw">Also in: sepia, burgundy</p></header>
+<div class="month"><p class="month-label">3 posts &middot; 2 pages</p><div class="pages"><button class="page" type="button" data-full="img/family-letter-3-p1.jpg" aria-label="Family letter, 3 posts, page 1: open large"><img src="img/family-letter-3-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/family-letter-3-p2.jpg" aria-label="Family letter, 3 posts, page 2: open large"><img src="img/family-letter-3-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button></div></div><div class="month"><p class="month-label">6 posts &middot; 4 pages</p><div class="pages"><button class="page" type="button" data-full="img/family-letter-6-p1.jpg" aria-label="Family letter, 6 posts, page 1: open large"><img src="img/family-letter-6-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/family-letter-6-p2.jpg" aria-label="Family letter, 6 posts, page 2: open large"><img src="img/family-letter-6-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button><button class="page" type="button" data-full="img/family-letter-6-p3.jpg" aria-label="Family letter, 6 posts, page 3: open large"><img src="img/family-letter-6-p3.jpg" alt="" loading="lazy" width="408" height="528"><span>p3</span></button><button class="page" type="button" data-full="img/family-letter-6-p4.jpg" aria-label="Family letter, 6 posts, page 4: open large"><img src="img/family-letter-6-p4.jpg" alt="" loading="lazy" width="408" height="528"><span>p4</span></button></div></div>
+<fieldset class="verdict"><legend>Your call on Family letter</legend>
+<div class="choices">
+<label><input type="radio" name="v-family-letter" id="v-family-letter-keep" value="Keep"> Keep as is</label>
+<label><input type="radio" name="v-family-letter" id="v-family-letter-change" value="Change"> Change something</label>
+<label><input type="radio" name="v-family-letter" id="v-family-letter-drop" value="Drop"> Drop it</label>
+</div>
+<label class="note-label" for="n-family-letter">What to change (optional)</label>
+<textarea id="n-family-letter" rows="2" placeholder="For example: headline font too heavy, name block colour"></textarea>
+</fieldset>
+</article>
+<article class="look" id="typewriter" data-key="typewriter" data-label="Typewriter letter">
+<header class="look-head"><h3>Typewriter letter</h3><p class="line">A typed letter from home: a typewriter name, sturdy slab headlines and a red ribbon line.</p><p class="cw">Also in: blue ribbon</p></header>
+<div class="month"><p class="month-label">3 posts &middot; 2 pages</p><div class="pages"><button class="page" type="button" data-full="img/typewriter-3-p1.jpg" aria-label="Typewriter letter, 3 posts, page 1: open large"><img src="img/typewriter-3-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/typewriter-3-p2.jpg" aria-label="Typewriter letter, 3 posts, page 2: open large"><img src="img/typewriter-3-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button></div></div><div class="month"><p class="month-label">6 posts &middot; 4 pages</p><div class="pages"><button class="page" type="button" data-full="img/typewriter-6-p1.jpg" aria-label="Typewriter letter, 6 posts, page 1: open large"><img src="img/typewriter-6-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/typewriter-6-p2.jpg" aria-label="Typewriter letter, 6 posts, page 2: open large"><img src="img/typewriter-6-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button><button class="page" type="button" data-full="img/typewriter-6-p3.jpg" aria-label="Typewriter letter, 6 posts, page 3: open large"><img src="img/typewriter-6-p3.jpg" alt="" loading="lazy" width="408" height="528"><span>p3</span></button><button class="page" type="button" data-full="img/typewriter-6-p4.jpg" aria-label="Typewriter letter, 6 posts, page 4: open large"><img src="img/typewriter-6-p4.jpg" alt="" loading="lazy" width="408" height="528"><span>p4</span></button></div></div>
+<fieldset class="verdict"><legend>Your call on Typewriter letter</legend>
+<div class="choices">
+<label><input type="radio" name="v-typewriter" id="v-typewriter-keep" value="Keep"> Keep as is</label>
+<label><input type="radio" name="v-typewriter" id="v-typewriter-change" value="Change"> Change something</label>
+<label><input type="radio" name="v-typewriter" id="v-typewriter-drop" value="Drop"> Drop it</label>
+</div>
+<label class="note-label" for="n-typewriter">What to change (optional)</label>
+<textarea id="n-typewriter" rows="2" placeholder="For example: headline font too heavy, name block colour"></textarea>
+</fieldset>
+</article>
+<article class="look" id="airmail" data-key="airmail" data-label="Airmail letter">
+<header class="look-head"><h3>Airmail letter</h3><p class="line">Letters by air mail: the striped envelope edge in red and blue.</p></header>
+<div class="month"><p class="month-label">3 posts &middot; 2 pages</p><div class="pages"><button class="page" type="button" data-full="img/airmail-3-p1.jpg" aria-label="Airmail letter, 3 posts, page 1: open large"><img src="img/airmail-3-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/airmail-3-p2.jpg" aria-label="Airmail letter, 3 posts, page 2: open large"><img src="img/airmail-3-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button></div></div><div class="month"><p class="month-label">6 posts &middot; 4 pages</p><div class="pages"><button class="page" type="button" data-full="img/airmail-6-p1.jpg" aria-label="Airmail letter, 6 posts, page 1: open large"><img src="img/airmail-6-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/airmail-6-p2.jpg" aria-label="Airmail letter, 6 posts, page 2: open large"><img src="img/airmail-6-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button><button class="page" type="button" data-full="img/airmail-6-p3.jpg" aria-label="Airmail letter, 6 posts, page 3: open large"><img src="img/airmail-6-p3.jpg" alt="" loading="lazy" width="408" height="528"><span>p3</span></button><button class="page" type="button" data-full="img/airmail-6-p4.jpg" aria-label="Airmail letter, 6 posts, page 4: open large"><img src="img/airmail-6-p4.jpg" alt="" loading="lazy" width="408" height="528"><span>p4</span></button></div></div>
+<fieldset class="verdict"><legend>Your call on Airmail letter</legend>
+<div class="choices">
+<label><input type="radio" name="v-airmail" id="v-airmail-keep" value="Keep"> Keep as is</label>
+<label><input type="radio" name="v-airmail" id="v-airmail-change" value="Change"> Change something</label>
+<label><input type="radio" name="v-airmail" id="v-airmail-drop" value="Drop"> Drop it</label>
+</div>
+<label class="note-label" for="n-airmail">What to change (optional)</label>
+<textarea id="n-airmail" rows="2" placeholder="For example: headline font too heavy, name block colour"></textarea>
+</fieldset>
+</article>
+<h2 class="group" id="home-and-garden">Home and garden</h2>
+<article class="look" id="garden-club" data-key="garden-club" data-label="Garden club">
+<header class="look-head"><h3>Garden club</h3><p class="line">Leafy green and an elegant serif, with a sprig under the name.</p><p class="cw">Also in: navy, plum</p></header>
+<div class="month"><p class="month-label">3 posts &middot; 2 pages</p><div class="pages"><button class="page" type="button" data-full="img/garden-club-3-p1.jpg" aria-label="Garden club, 3 posts, page 1: open large"><img src="img/garden-club-3-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/garden-club-3-p2.jpg" aria-label="Garden club, 3 posts, page 2: open large"><img src="img/garden-club-3-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button></div></div><div class="month"><p class="month-label">6 posts &middot; 3 pages</p><div class="pages"><button class="page" type="button" data-full="img/garden-club-6-p1.jpg" aria-label="Garden club, 6 posts, page 1: open large"><img src="img/garden-club-6-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/garden-club-6-p2.jpg" aria-label="Garden club, 6 posts, page 2: open large"><img src="img/garden-club-6-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button><button class="page" type="button" data-full="img/garden-club-6-p3.jpg" aria-label="Garden club, 6 posts, page 3: open large"><img src="img/garden-club-6-p3.jpg" alt="" loading="lazy" width="408" height="528"><span>p3</span></button></div></div>
+<fieldset class="verdict"><legend>Your call on Garden club</legend>
+<div class="choices">
+<label><input type="radio" name="v-garden-club" id="v-garden-club-keep" value="Keep"> Keep as is</label>
+<label><input type="radio" name="v-garden-club" id="v-garden-club-change" value="Change"> Change something</label>
+<label><input type="radio" name="v-garden-club" id="v-garden-club-drop" value="Drop"> Drop it</label>
+</div>
+<label class="note-label" for="n-garden-club">What to change (optional)</label>
+<textarea id="n-garden-club" rows="2" placeholder="For example: headline font too heavy, name block colour"></textarea>
+</fieldset>
+</article>
+<article class="look" id="almanac" data-key="almanac" data-label="Almanac">
+<header class="look-head"><h3>Almanac</h3><p class="line">A harvest almanac: a sturdy old-style serif, rust rules and small diamonds.</p><p class="cw">Also in: forest, navy</p></header>
+<div class="month"><p class="month-label">3 posts &middot; 2 pages</p><div class="pages"><button class="page" type="button" data-full="img/almanac-3-p1.jpg" aria-label="Almanac, 3 posts, page 1: open large"><img src="img/almanac-3-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/almanac-3-p2.jpg" aria-label="Almanac, 3 posts, page 2: open large"><img src="img/almanac-3-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button></div></div><div class="month"><p class="month-label">6 posts &middot; 4 pages</p><div class="pages"><button class="page" type="button" data-full="img/almanac-6-p1.jpg" aria-label="Almanac, 6 posts, page 1: open large"><img src="img/almanac-6-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/almanac-6-p2.jpg" aria-label="Almanac, 6 posts, page 2: open large"><img src="img/almanac-6-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button><button class="page" type="button" data-full="img/almanac-6-p3.jpg" aria-label="Almanac, 6 posts, page 3: open large"><img src="img/almanac-6-p3.jpg" alt="" loading="lazy" width="408" height="528"><span>p3</span></button><button class="page" type="button" data-full="img/almanac-6-p4.jpg" aria-label="Almanac, 6 posts, page 4: open large"><img src="img/almanac-6-p4.jpg" alt="" loading="lazy" width="408" height="528"><span>p4</span></button></div></div>
+<fieldset class="verdict"><legend>Your call on Almanac</legend>
+<div class="choices">
+<label><input type="radio" name="v-almanac" id="v-almanac-keep" value="Keep"> Keep as is</label>
+<label><input type="radio" name="v-almanac" id="v-almanac-change" value="Change"> Change something</label>
+<label><input type="radio" name="v-almanac" id="v-almanac-drop" value="Drop"> Drop it</label>
+</div>
+<label class="note-label" for="n-almanac">What to change (optional)</label>
+<textarea id="n-almanac" rows="2" placeholder="For example: headline font too heavy, name block colour"></textarea>
+</fieldset>
+</article>
+<article class="look" id="backyard-birds" data-key="backyard-birds" data-label="Backyard birds">
+<header class="look-head"><h3>Backyard birds</h3><p class="line">Backyard birds: a cardinal, a bluebird and a branch, in a clear friendly serif.</p></header>
+<div class="month"><p class="month-label">3 posts &middot; 2 pages</p><div class="pages"><button class="page" type="button" data-full="img/backyard-birds-3-p1.jpg" aria-label="Backyard birds, 3 posts, page 1: open large"><img src="img/backyard-birds-3-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/backyard-birds-3-p2.jpg" aria-label="Backyard birds, 3 posts, page 2: open large"><img src="img/backyard-birds-3-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button></div></div><div class="month"><p class="month-label">6 posts &middot; 3 pages</p><div class="pages"><button class="page" type="button" data-full="img/backyard-birds-6-p1.jpg" aria-label="Backyard birds, 6 posts, page 1: open large"><img src="img/backyard-birds-6-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/backyard-birds-6-p2.jpg" aria-label="Backyard birds, 6 posts, page 2: open large"><img src="img/backyard-birds-6-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button><button class="page" type="button" data-full="img/backyard-birds-6-p3.jpg" aria-label="Backyard birds, 6 posts, page 3: open large"><img src="img/backyard-birds-6-p3.jpg" alt="" loading="lazy" width="408" height="528"><span>p3</span></button></div></div>
+<fieldset class="verdict"><legend>Your call on Backyard birds</legend>
+<div class="choices">
+<label><input type="radio" name="v-backyard-birds" id="v-backyard-birds-keep" value="Keep"> Keep as is</label>
+<label><input type="radio" name="v-backyard-birds" id="v-backyard-birds-change" value="Change"> Change something</label>
+<label><input type="radio" name="v-backyard-birds" id="v-backyard-birds-drop" value="Drop"> Drop it</label>
+</div>
+<label class="note-label" for="n-backyard-birds">What to change (optional)</label>
+<textarea id="n-backyard-birds" rows="2" placeholder="For example: headline font too heavy, name block colour"></textarea>
+</fieldset>
+</article>
+<article class="look" id="blue-china" data-key="blue-china" data-label="Blue and white china">
+<header class="look-head"><h3>Blue and white china</h3><p class="line">Like the good china: deep blue on white, with a little blue flower.</p><p class="cw">Also in: Rose and white china</p></header>
+<div class="month"><p class="month-label">3 posts &middot; 2 pages</p><div class="pages"><button class="page" type="button" data-full="img/blue-china-3-p1.jpg" aria-label="Blue and white china, 3 posts, page 1: open large"><img src="img/blue-china-3-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/blue-china-3-p2.jpg" aria-label="Blue and white china, 3 posts, page 2: open large"><img src="img/blue-china-3-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button></div></div><div class="month"><p class="month-label">6 posts &middot; 3 pages</p><div class="pages"><button class="page" type="button" data-full="img/blue-china-6-p1.jpg" aria-label="Blue and white china, 6 posts, page 1: open large"><img src="img/blue-china-6-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/blue-china-6-p2.jpg" aria-label="Blue and white china, 6 posts, page 2: open large"><img src="img/blue-china-6-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button><button class="page" type="button" data-full="img/blue-china-6-p3.jpg" aria-label="Blue and white china, 6 posts, page 3: open large"><img src="img/blue-china-6-p3.jpg" alt="" loading="lazy" width="408" height="528"><span>p3</span></button></div></div>
+<fieldset class="verdict"><legend>Your call on Blue and white china</legend>
+<div class="choices">
+<label><input type="radio" name="v-blue-china" id="v-blue-china-keep" value="Keep"> Keep as is</label>
+<label><input type="radio" name="v-blue-china" id="v-blue-china-change" value="Change"> Change something</label>
+<label><input type="radio" name="v-blue-china" id="v-blue-china-drop" value="Drop"> Drop it</label>
+</div>
+<label class="note-label" for="n-blue-china">What to change (optional)</label>
+<textarea id="n-blue-china" rows="2" placeholder="For example: headline font too heavy, name block colour"></textarea>
+</fieldset>
+</article>
+<article class="look" id="lake-cabin" data-key="lake-cabin" data-label="Lake cabin">
+<header class="look-head"><h3>Lake cabin</h3><p class="line">Up at the lake: pine green, lake blue and a canoe.</p><p class="cw">Also in: blue</p></header>
+<div class="month"><p class="month-label">3 posts &middot; 2 pages</p><div class="pages"><button class="page" type="button" data-full="img/lake-cabin-3-p1.jpg" aria-label="Lake cabin, 3 posts, page 1: open large"><img src="img/lake-cabin-3-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/lake-cabin-3-p2.jpg" aria-label="Lake cabin, 3 posts, page 2: open large"><img src="img/lake-cabin-3-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button></div></div><div class="month"><p class="month-label">6 posts &middot; 3 pages</p><div class="pages"><button class="page" type="button" data-full="img/lake-cabin-6-p1.jpg" aria-label="Lake cabin, 6 posts, page 1: open large"><img src="img/lake-cabin-6-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/lake-cabin-6-p2.jpg" aria-label="Lake cabin, 6 posts, page 2: open large"><img src="img/lake-cabin-6-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button><button class="page" type="button" data-full="img/lake-cabin-6-p3.jpg" aria-label="Lake cabin, 6 posts, page 3: open large"><img src="img/lake-cabin-6-p3.jpg" alt="" loading="lazy" width="408" height="528"><span>p3</span></button></div></div>
+<fieldset class="verdict"><legend>Your call on Lake cabin</legend>
+<div class="choices">
+<label><input type="radio" name="v-lake-cabin" id="v-lake-cabin-keep" value="Keep"> Keep as is</label>
+<label><input type="radio" name="v-lake-cabin" id="v-lake-cabin-change" value="Change"> Change something</label>
+<label><input type="radio" name="v-lake-cabin" id="v-lake-cabin-drop" value="Drop"> Drop it</label>
+</div>
+<label class="note-label" for="n-lake-cabin">What to change (optional)</label>
+<textarea id="n-lake-cabin" rows="2" placeholder="For example: headline font too heavy, name block colour"></textarea>
+</fieldset>
+</article>
+<h2 class="group" id="bold-and-colorful">Bold and colorful</h2>
+<article class="look" id="color-block" data-key="color-block" data-label="Color block">
+<header class="look-head"><h3>Color block</h3><p class="line">The name on a bold color panel; the stories in plain dark type on white.</p><p class="cw">Also in: forest and plum, burgundy and navy</p></header>
+<div class="month"><p class="month-label">3 posts &middot; 2 pages</p><div class="pages"><button class="page" type="button" data-full="img/color-block-3-p1.jpg" aria-label="Color block, 3 posts, page 1: open large"><img src="img/color-block-3-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/color-block-3-p2.jpg" aria-label="Color block, 3 posts, page 2: open large"><img src="img/color-block-3-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button></div></div><div class="month"><p class="month-label">6 posts &middot; 3 pages</p><div class="pages"><button class="page" type="button" data-full="img/color-block-6-p1.jpg" aria-label="Color block, 6 posts, page 1: open large"><img src="img/color-block-6-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/color-block-6-p2.jpg" aria-label="Color block, 6 posts, page 2: open large"><img src="img/color-block-6-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button><button class="page" type="button" data-full="img/color-block-6-p3.jpg" aria-label="Color block, 6 posts, page 3: open large"><img src="img/color-block-6-p3.jpg" alt="" loading="lazy" width="408" height="528"><span>p3</span></button></div></div>
+<fieldset class="verdict"><legend>Your call on Color block</legend>
+<div class="choices">
+<label><input type="radio" name="v-color-block" id="v-color-block-keep" value="Keep"> Keep as is</label>
+<label><input type="radio" name="v-color-block" id="v-color-block-change" value="Change"> Change something</label>
+<label><input type="radio" name="v-color-block" id="v-color-block-drop" value="Drop"> Drop it</label>
+</div>
+<label class="note-label" for="n-color-block">What to change (optional)</label>
+<textarea id="n-color-block" rows="2" placeholder="For example: headline font too heavy, name block colour"></textarea>
+</fieldset>
+</article>
+<article class="look" id="bold-modern" data-key="bold-modern" data-label="Bold modern">
+<header class="look-head"><h3>Bold modern</h3><p class="line">Big black type, heavy bars and one bright yellow.</p><p class="cw">Also in: navy and sky blue, black and tangerine</p></header>
+<div class="month"><p class="month-label">3 posts &middot; 2 pages</p><div class="pages"><button class="page" type="button" data-full="img/bold-modern-3-p1.jpg" aria-label="Bold modern, 3 posts, page 1: open large"><img src="img/bold-modern-3-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/bold-modern-3-p2.jpg" aria-label="Bold modern, 3 posts, page 2: open large"><img src="img/bold-modern-3-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button></div></div><div class="month"><p class="month-label">6 posts &middot; 4 pages</p><div class="pages"><button class="page" type="button" data-full="img/bold-modern-6-p1.jpg" aria-label="Bold modern, 6 posts, page 1: open large"><img src="img/bold-modern-6-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/bold-modern-6-p2.jpg" aria-label="Bold modern, 6 posts, page 2: open large"><img src="img/bold-modern-6-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button><button class="page" type="button" data-full="img/bold-modern-6-p3.jpg" aria-label="Bold modern, 6 posts, page 3: open large"><img src="img/bold-modern-6-p3.jpg" alt="" loading="lazy" width="408" height="528"><span>p3</span></button><button class="page" type="button" data-full="img/bold-modern-6-p4.jpg" aria-label="Bold modern, 6 posts, page 4: open large"><img src="img/bold-modern-6-p4.jpg" alt="" loading="lazy" width="408" height="528"><span>p4</span></button></div></div>
+<fieldset class="verdict"><legend>Your call on Bold modern</legend>
+<div class="choices">
+<label><input type="radio" name="v-bold-modern" id="v-bold-modern-keep" value="Keep"> Keep as is</label>
+<label><input type="radio" name="v-bold-modern" id="v-bold-modern-change" value="Change"> Change something</label>
+<label><input type="radio" name="v-bold-modern" id="v-bold-modern-drop" value="Drop"> Drop it</label>
+</div>
+<label class="note-label" for="n-bold-modern">What to change (optional)</label>
+<textarea id="n-bold-modern" rows="2" placeholder="For example: headline font too heavy, name block colour"></textarea>
+</fieldset>
+</article>
+<article class="look" id="retro-70s" data-key="retro-70s" data-label="1970s retro">
+<header class="look-head"><h3>1970s retro</h3><p class="line">Warm orange, brown and mustard stripes with a soft, chunky serif.</p><p class="cw">Also in: avocado and harvest gold, teal and coral</p></header>
+<div class="month"><p class="month-label">3 posts &middot; 2 pages</p><div class="pages"><button class="page" type="button" data-full="img/retro-70s-3-p1.jpg" aria-label="1970s retro, 3 posts, page 1: open large"><img src="img/retro-70s-3-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/retro-70s-3-p2.jpg" aria-label="1970s retro, 3 posts, page 2: open large"><img src="img/retro-70s-3-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button></div></div><div class="month"><p class="month-label">6 posts &middot; 3 pages</p><div class="pages"><button class="page" type="button" data-full="img/retro-70s-6-p1.jpg" aria-label="1970s retro, 6 posts, page 1: open large"><img src="img/retro-70s-6-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/retro-70s-6-p2.jpg" aria-label="1970s retro, 6 posts, page 2: open large"><img src="img/retro-70s-6-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button><button class="page" type="button" data-full="img/retro-70s-6-p3.jpg" aria-label="1970s retro, 6 posts, page 3: open large"><img src="img/retro-70s-6-p3.jpg" alt="" loading="lazy" width="408" height="528"><span>p3</span></button></div></div>
+<fieldset class="verdict"><legend>Your call on 1970s retro</legend>
+<div class="choices">
+<label><input type="radio" name="v-retro-70s" id="v-retro-70s-keep" value="Keep"> Keep as is</label>
+<label><input type="radio" name="v-retro-70s" id="v-retro-70s-change" value="Change"> Change something</label>
+<label><input type="radio" name="v-retro-70s" id="v-retro-70s-drop" value="Drop"> Drop it</label>
+</div>
+<label class="note-label" for="n-retro-70s">What to change (optional)</label>
+<textarea id="n-retro-70s" rows="2" placeholder="For example: headline font too heavy, name block colour"></textarea>
+</fieldset>
+</article>
+<h2 class="group" id="clean-and-modern">Clean and modern</h2>
+<article class="look" id="swiss-modern" data-key="swiss-modern" data-label="Swiss modern">
+<header class="look-head"><h3>Swiss modern</h3><p class="line">A strict grid, clean type and a red accent.</p><p class="cw">Also in: cobalt blue, signal orange</p></header>
+<div class="month"><p class="month-label">3 posts &middot; 2 pages</p><div class="pages"><button class="page" type="button" data-full="img/swiss-modern-3-p1.jpg" aria-label="Swiss modern, 3 posts, page 1: open large"><img src="img/swiss-modern-3-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/swiss-modern-3-p2.jpg" aria-label="Swiss modern, 3 posts, page 2: open large"><img src="img/swiss-modern-3-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button></div></div><div class="month"><p class="month-label">6 posts &middot; 4 pages</p><div class="pages"><button class="page" type="button" data-full="img/swiss-modern-6-p1.jpg" aria-label="Swiss modern, 6 posts, page 1: open large"><img src="img/swiss-modern-6-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/swiss-modern-6-p2.jpg" aria-label="Swiss modern, 6 posts, page 2: open large"><img src="img/swiss-modern-6-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button><button class="page" type="button" data-full="img/swiss-modern-6-p3.jpg" aria-label="Swiss modern, 6 posts, page 3: open large"><img src="img/swiss-modern-6-p3.jpg" alt="" loading="lazy" width="408" height="528"><span>p3</span></button><button class="page" type="button" data-full="img/swiss-modern-6-p4.jpg" aria-label="Swiss modern, 6 posts, page 4: open large"><img src="img/swiss-modern-6-p4.jpg" alt="" loading="lazy" width="408" height="528"><span>p4</span></button></div></div>
+<fieldset class="verdict"><legend>Your call on Swiss modern</legend>
+<div class="choices">
+<label><input type="radio" name="v-swiss-modern" id="v-swiss-modern-keep" value="Keep"> Keep as is</label>
+<label><input type="radio" name="v-swiss-modern" id="v-swiss-modern-change" value="Change"> Change something</label>
+<label><input type="radio" name="v-swiss-modern" id="v-swiss-modern-drop" value="Drop"> Drop it</label>
+</div>
+<label class="note-label" for="n-swiss-modern">What to change (optional)</label>
+<textarea id="n-swiss-modern" rows="2" placeholder="For example: headline font too heavy, name block colour"></textarea>
+</fieldset>
+</article>
+<article class="look" id="easy-reading" data-key="easy-reading" data-label="Easy reading">
+<header class="look-head"><h3>Easy reading</h3><p class="line">Made for easy reading: clear, open type, strong rules and nothing fussy.</p></header>
+<div class="month"><p class="month-label">3 posts &middot; 2 pages</p><div class="pages"><button class="page" type="button" data-full="img/easy-reading-3-p1.jpg" aria-label="Easy reading, 3 posts, page 1: open large"><img src="img/easy-reading-3-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/easy-reading-3-p2.jpg" aria-label="Easy reading, 3 posts, page 2: open large"><img src="img/easy-reading-3-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button></div></div><div class="month"><p class="month-label">6 posts &middot; 4 pages</p><div class="pages"><button class="page" type="button" data-full="img/easy-reading-6-p1.jpg" aria-label="Easy reading, 6 posts, page 1: open large"><img src="img/easy-reading-6-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/easy-reading-6-p2.jpg" aria-label="Easy reading, 6 posts, page 2: open large"><img src="img/easy-reading-6-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button><button class="page" type="button" data-full="img/easy-reading-6-p3.jpg" aria-label="Easy reading, 6 posts, page 3: open large"><img src="img/easy-reading-6-p3.jpg" alt="" loading="lazy" width="408" height="528"><span>p3</span></button><button class="page" type="button" data-full="img/easy-reading-6-p4.jpg" aria-label="Easy reading, 6 posts, page 4: open large"><img src="img/easy-reading-6-p4.jpg" alt="" loading="lazy" width="408" height="528"><span>p4</span></button></div></div>
+<fieldset class="verdict"><legend>Your call on Easy reading</legend>
+<div class="choices">
+<label><input type="radio" name="v-easy-reading" id="v-easy-reading-keep" value="Keep"> Keep as is</label>
+<label><input type="radio" name="v-easy-reading" id="v-easy-reading-change" value="Change"> Change something</label>
+<label><input type="radio" name="v-easy-reading" id="v-easy-reading-drop" value="Drop"> Drop it</label>
+</div>
+<label class="note-label" for="n-easy-reading">What to change (optional)</label>
+<textarea id="n-easy-reading" rows="2" placeholder="For example: headline font too heavy, name block colour"></textarea>
+</fieldset>
+</article>
+<article class="look" id="simply-calm" data-key="simply-calm" data-label="Simply calm">
+<header class="look-head"><h3>Simply calm</h3><p class="line">Our calm look on paper: clean, quiet type and plenty of white space.</p></header>
+<div class="month"><p class="month-label">3 posts &middot; 2 pages</p><div class="pages"><button class="page" type="button" data-full="img/simply-calm-3-p1.jpg" aria-label="Simply calm, 3 posts, page 1: open large"><img src="img/simply-calm-3-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/simply-calm-3-p2.jpg" aria-label="Simply calm, 3 posts, page 2: open large"><img src="img/simply-calm-3-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button></div></div><div class="month"><p class="month-label">6 posts &middot; 3 pages</p><div class="pages"><button class="page" type="button" data-full="img/simply-calm-6-p1.jpg" aria-label="Simply calm, 6 posts, page 1: open large"><img src="img/simply-calm-6-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/simply-calm-6-p2.jpg" aria-label="Simply calm, 6 posts, page 2: open large"><img src="img/simply-calm-6-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button><button class="page" type="button" data-full="img/simply-calm-6-p3.jpg" aria-label="Simply calm, 6 posts, page 3: open large"><img src="img/simply-calm-6-p3.jpg" alt="" loading="lazy" width="408" height="528"><span>p3</span></button></div></div>
+<fieldset class="verdict"><legend>Your call on Simply calm</legend>
+<div class="choices">
+<label><input type="radio" name="v-simply-calm" id="v-simply-calm-keep" value="Keep"> Keep as is</label>
+<label><input type="radio" name="v-simply-calm" id="v-simply-calm-change" value="Change"> Change something</label>
+<label><input type="radio" name="v-simply-calm" id="v-simply-calm-drop" value="Drop"> Drop it</label>
+</div>
+<label class="note-label" for="n-simply-calm">What to change (optional)</label>
+<textarea id="n-simply-calm" rows="2" placeholder="For example: headline font too heavy, name block colour"></textarea>
+</fieldset>
+</article>
+<article class="look" id="weekend-review" data-key="weekend-review" data-label="Weekend review">
+<header class="look-head"><h3>Weekend review</h3><p class="line">A Sunday review: tall elegant headlines, clean words and lots of white.</p></header>
+<div class="month"><p class="month-label">3 posts &middot; 2 pages</p><div class="pages"><button class="page" type="button" data-full="img/weekend-review-3-p1.jpg" aria-label="Weekend review, 3 posts, page 1: open large"><img src="img/weekend-review-3-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/weekend-review-3-p2.jpg" aria-label="Weekend review, 3 posts, page 2: open large"><img src="img/weekend-review-3-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button></div></div><div class="month"><p class="month-label">6 posts &middot; 3 pages</p><div class="pages"><button class="page" type="button" data-full="img/weekend-review-6-p1.jpg" aria-label="Weekend review, 6 posts, page 1: open large"><img src="img/weekend-review-6-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/weekend-review-6-p2.jpg" aria-label="Weekend review, 6 posts, page 2: open large"><img src="img/weekend-review-6-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button><button class="page" type="button" data-full="img/weekend-review-6-p3.jpg" aria-label="Weekend review, 6 posts, page 3: open large"><img src="img/weekend-review-6-p3.jpg" alt="" loading="lazy" width="408" height="528"><span>p3</span></button></div></div>
+<fieldset class="verdict"><legend>Your call on Weekend review</legend>
+<div class="choices">
+<label><input type="radio" name="v-weekend-review" id="v-weekend-review-keep" value="Keep"> Keep as is</label>
+<label><input type="radio" name="v-weekend-review" id="v-weekend-review-change" value="Change"> Change something</label>
+<label><input type="radio" name="v-weekend-review" id="v-weekend-review-drop" value="Drop"> Drop it</label>
+</div>
+<label class="note-label" for="n-weekend-review">What to change (optional)</label>
+<textarea id="n-weekend-review" rows="2" placeholder="For example: headline font too heavy, name block colour"></textarea>
+</fieldset>
+</article>
+<article class="look" id="black-and-white" data-key="black-and-white" data-label="Black and white">
+<header class="look-head"><h3>Black and white</h3><p class="line">Pure black and white: a fine high-contrast serif and strong photos.</p></header>
+<div class="month"><p class="month-label">3 posts &middot; 2 pages</p><div class="pages"><button class="page" type="button" data-full="img/black-and-white-3-p1.jpg" aria-label="Black and white, 3 posts, page 1: open large"><img src="img/black-and-white-3-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/black-and-white-3-p2.jpg" aria-label="Black and white, 3 posts, page 2: open large"><img src="img/black-and-white-3-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button></div></div><div class="month"><p class="month-label">6 posts &middot; 4 pages</p><div class="pages"><button class="page" type="button" data-full="img/black-and-white-6-p1.jpg" aria-label="Black and white, 6 posts, page 1: open large"><img src="img/black-and-white-6-p1.jpg" alt="" loading="lazy" width="408" height="528"><span>p1</span></button><button class="page" type="button" data-full="img/black-and-white-6-p2.jpg" aria-label="Black and white, 6 posts, page 2: open large"><img src="img/black-and-white-6-p2.jpg" alt="" loading="lazy" width="408" height="528"><span>p2</span></button><button class="page" type="button" data-full="img/black-and-white-6-p3.jpg" aria-label="Black and white, 6 posts, page 3: open large"><img src="img/black-and-white-6-p3.jpg" alt="" loading="lazy" width="408" height="528"><span>p3</span></button><button class="page" type="button" data-full="img/black-and-white-6-p4.jpg" aria-label="Black and white, 6 posts, page 4: open large"><img src="img/black-and-white-6-p4.jpg" alt="" loading="lazy" width="408" height="528"><span>p4</span></button></div></div>
+<fieldset class="verdict"><legend>Your call on Black and white</legend>
+<div class="choices">
+<label><input type="radio" name="v-black-and-white" id="v-black-and-white-keep" value="Keep"> Keep as is</label>
+<label><input type="radio" name="v-black-and-white" id="v-black-and-white-change" value="Change"> Change something</label>
+<label><input type="radio" name="v-black-and-white" id="v-black-and-white-drop" value="Drop"> Drop it</label>
+</div>
+<label class="note-label" for="n-black-and-white">What to change (optional)</label>
+<textarea id="n-black-and-white" rows="2" placeholder="For example: headline font too heavy, name block colour"></textarea>
+</fieldset>
+</article>
+<section class="foot">
+<button class="btn" type="button" id="copy-bottom">Copy my notes</button>
+<p class="progress" id="copy-status" role="status"></p>
+<textarea class="out" id="out" hidden readonly aria-label="Your notes, ready to copy"></textarea>
+</section>
+</main>
+
+<dialog class="zoom" id="zoom" aria-label="Page, large">
+<div class="zoom-inner">
+<img id="zoom-img" alt="">
+<div class="zoom-ctl">
+<button type="button" id="zoom-prev" aria-label="Previous page">&larr;</button>
+<p id="zoom-cap"></p>
+<button type="button" id="zoom-next" aria-label="Next page">&rarr;</button>
+<button type="button" id="zoom-close">Close</button>
+</div>
+</div>
+</dialog>
+
+<script>
+(function () {
+  var KEY = 'look-review-2026-11-06';
+  var looks = Array.prototype.slice.call(document.querySelectorAll('.look'));
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { saved = {}; }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) { /* private window: picks live only on this page */ } }
+  function progress() {
+    var n = looks.filter(function (l) { return l.dataset.state; }).length;
+    document.getElementById('progress').textContent = n + ' of ' + looks.length + ' decided';
+  }
+  looks.forEach(function (look) {
+    var k = look.dataset.key, s = saved[k] || {};
+    var note = look.querySelector('textarea');
+    if (s.v) { var r = look.querySelector('input[value="' + s.v + '"]'); if (r) { r.checked = true; look.dataset.state = s.v; } }
+    if (s.n) note.value = s.n;
+    look.addEventListener('change', function (ev) {
+      if (ev.target.type !== 'radio') return;
+      saved[k] = saved[k] || {}; saved[k].v = ev.target.value; look.dataset.state = ev.target.value; save(); progress();
+    });
+    note.addEventListener('input', function () { saved[k] = saved[k] || {}; saved[k].n = note.value; save(); });
+  });
+  progress();
+  var reviewer = document.getElementById('reviewer');
+  if (saved._who) reviewer.value = saved._who;
+  reviewer.addEventListener('input', function () { saved._who = reviewer.value; save(); });
+
+  function notes() {
+    var by = { Keep: [], Change: [], Drop: [], none: [] }, extra = [];
+    looks.forEach(function (l) {
+      var label = l.dataset.label, v = l.dataset.state || 'none', n = l.querySelector('textarea').value.trim();
+      by[v].push(label);
+      if (n) extra.push('- ' + label + (v === 'none' ? '' : ' (' + v + ')') + ': ' + n);
+    });
+    var who = document.getElementById('reviewer').value.trim();
+    var t = ['Paper looks review' + (who ? ' from ' + who : '')];
+    t.push('Keep (' + by.Keep.length + '): ' + (by.Keep.join(', ') || 'none'));
+    t.push('Change (' + by.Change.length + '): ' + (by.Change.join(', ') || 'none'));
+    t.push('Drop (' + by.Drop.length + '): ' + (by.Drop.join(', ') || 'none'));
+    if (by.none.length) t.push('Not decided (' + by.none.length + '): ' + by.none.join(', '));
+    if (extra.length) { t.push(''); t.push('Notes:'); t = t.concat(extra); }
+    return t.join('\n');
+  }
+  function copy() {
+    var text = notes(), out = document.getElementById('out'), status = document.getElementById('copy-status');
+    out.value = text;
+    function fallback() {
+      out.hidden = false; out.focus(); out.select();
+      status.textContent = 'Your notes are selected below. Copy them and send them by text or email.';
+      out.scrollIntoView({ block: 'center' });
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        out.hidden = false; status.textContent = 'Copied. Paste it into a text or email to whoever sent you this link.';
+      }, fallback);
+    } else { fallback(); }
+  }
+  document.getElementById('copy-top').addEventListener('click', copy);
+  document.getElementById('copy-bottom').addEventListener('click', copy);
+
+  var pages = Array.prototype.slice.call(document.querySelectorAll('.page'));
+  var zoom = document.getElementById('zoom'), zimg = document.getElementById('zoom-img'), cap = document.getElementById('zoom-cap'), at = 0;
+  function show(i) {
+    at = (i + pages.length) % pages.length;
+    var p = pages[at];
+    zimg.src = p.dataset.full;
+    cap.textContent = p.getAttribute('aria-label').replace(': open large', '');
+  }
+  pages.forEach(function (p, i) { p.addEventListener('click', function () { show(i); if (zoom.showModal) zoom.showModal(); else zoom.setAttribute('open', ''); }); });
+  document.getElementById('zoom-prev').addEventListener('click', function () { show(at - 1); });
+  document.getElementById('zoom-next').addEventListener('click', function () { show(at + 1); });
+  document.getElementById('zoom-close').addEventListener('click', function () { zoom.close(); });
+  zoom.addEventListener('click', function (ev) { if (ev.target === zoom || ev.target.classList.contains('zoom-inner')) zoom.close(); });
+  zoom.addEventListener('keydown', function (ev) {
+    if (ev.key === 'ArrowLeft') show(at - 1);
+    if (ev.key === 'ArrowRight') show(at + 1);
+  });
+})();
+</script>
+</body>
+</html>
