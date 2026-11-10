@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Grandma Jo’s Post, Christmas 2026</title>
+
+<style>@font-face{font-family:'Gloock';font-style:normal;font-weight:400;font-display:block;src:url('fonts/gloock-latin-400-normal.woff2') format('woff2');}@font-face{font-family:'Newsreader';font-style:normal;font-weight:400;font-display:block;src:url('fonts/newsreader-latin-400-normal.woff2') format('woff2');}@font-face{font-family:'Newsreader';font-style:normal;font-weight:600;font-display:block;src:url('fonts/newsreader-latin-600-normal.woff2') format('woff2');}
+@page { size: letter; margin: 0; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { background: #525659; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+h1, h2, h3, p, ol, ul, figure { margin: 0; }
+/* Each line of words takes its direction from its own first letter, so a note in Arabic or Hebrew reads right to left
+   and lines up on the right (bug hunt 15 October 2026, CONTENT-12). It needs text-align left at its default, start. */
+.sheet :is(p, h1, h2, h3, li) { unicode-bidi: plaintext; }
+/* A caption prints each line the family typed on its own line (CONTENT-21), and with plaintext each line takes its own
+   direction. foldLines (src/lib/words.ts) has already dropped blank lines, and countLines counts every line. */
+.sheet .lines { white-space: pre-line; }
+ul { padding: 0; list-style: none; }
+.sheets { display: flex; flex-direction: column; align-items: center; gap: 24px; padding: 24px 12px; }
+.sheet { position: relative; width: 8.5in; height: 11in; background: #fff; box-shadow: 0 2px 14px rgba(0,0,0,0.45); }
+.address-area { position: absolute; left: 0.4in; top: 0.1in; width: 4.35in; height: 2.85in; }
+@font-face { font-family: "Toolbar Sans"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("fonts/inter-tight-latin-wght-normal.woff2") format("woff2"); }
+.toolbar { background: #0b1020; color: #fff; padding: 12px 16px; font-family: "Toolbar Sans", "Segoe UI", system-ui, sans-serif; font-size: 13pt; line-height: 1.5; }
+.toolbar p { max-width: 8.5in; margin: 0 auto; }
+.toolbar a { color: #fff; font-weight: 600; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+.toolbar a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+/* On screen the window shows the address's shape where the printed address goes: the sample's pretend address in ink,
+   a family's own as grey lines (senior design review, docs/PLAN-SMALL-LIFTS-2026-10.md; before it a grey box, and
+   before that a dashed black one, W35, R-12). Print keeps it blank. */
+@media screen {
+  .address-area { padding: 1.1in 0.35in 0; }
+  .address-area .address-shape { color: #5a6278; }
+  .address-area .address-bar { display: block; width: 2.4in; height: 0.14in; margin-top: 0.12in; background: #dfe3ea; }
+  .address-area .address-bar.short { width: 1.6in; }
+}
+/* The words take the look's own face from its .sheet, never a system font (Arial stood out inside every look: whole-site
+   review of 28 October 2026, D-5). */
+.address-area p { margin: 0; font-family: inherit; font-size: 12pt; line-height: 1.35; }
+@media screen and (max-width: 860px) { .sheets { zoom: 0.8; } }
+@media screen and (max-width: 700px) { .sheets { zoom: 0.66; } }
+@media screen and (max-width: 560px) { .sheets { zoom: 0.52; } }
+@media screen and (max-width: 460px) { .sheets { zoom: 0.44; } }
+@media screen and (max-width: 400px) { .sheets { zoom: 0.42; } }
+@media screen and (max-width: 340px) { .sheets { zoom: 0.36; } }
+body.cover-only { background: #fff; }
+body.full-size .sheets { zoom: 1; overflow-x: auto; align-items: safe center; }
+/* A box that scrolls sideways is a Tab stop in Chrome, so it needs a ring. White, as the toolbar link's: the Calm cobalt
+   on this dark grey page is about 1.2:1, under the 3:1 a ring needs. Drawn inside, as the box is the screen's width. */
+body.full-size .sheets:focus-visible { outline: 2px solid #fff; outline-offset: -4px; }
+body.cover-only .sheets { padding: 0; zoom: 1; }
+body.cover-only .sheet { box-shadow: none; }
+/* A band left empty on purpose (docs/PLAN-EXTRAS-AND-COLOR-2026-10.md part 2) is white space: no look's feature rule,
+   fill or ornament, whatever its own stylesheet gives a feature. */
+.fill > .feature.f-blank { border: 0 !important; background: none !important; box-shadow: none !important; }
+.fill > .feature.f-blank::before, .fill > .feature.f-blank::after { content: none !important; }
+/* The family's own words (src/lib/spare-words.ts): the look's own body face and ink, 16 pt, each typed line its own. */
+.f-words .f-words-text { font-size: 16pt; line-height: 22pt; margin-top: 0.08in; overflow-wrap: anywhere; text-wrap: pretty; }
+.f-words .f-label + .f-words-text { margin-top: 0.12in; }
+@media print {
+  body { background: #fff; }
+  .screen-only { display: none !important; }
+  .sheets { display: block; padding: 0; zoom: 1; }
+  .sheet { box-shadow: none; break-after: page; page-break-after: always; }
+  .sheet:last-child { break-after: auto; page-break-after: auto; }
+}
+
+.xmas-midnight .sheet { --navy: #18264A; --star: #E3B23C; font-family: 'Newsreader', Georgia, serif; font-weight: 400; color: #1C1C24; }
+.xmas-midnight .photo { position: absolute; display: block; object-fit: cover; border-radius: 4pt; outline: 2pt solid var(--star); outline-offset: -5pt; }
+.xmas-midnight .sheet:not(.sheet-cover) .w > .label::before, .xmas-midnight .sheet:not(.sheet-cover) .letter > .label::before, .xmas-midnight .sheet:not(.sheet-cover) .after-photo > .label::before { content: ''; display: inline-block; width: 0.15in; height: 0.15in; margin-right: 0.07in; vertical-align: -0.02in; background: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2020%2020'%3E%3Cpolygon%20fill%3D'%23E3B23C'%20points%3D'10.00%2C1.00%2012.35%2C7.27%2019.04%2C7.56%2013.79%2C11.73%2015.58%2C18.19%2010.00%2C14.49%204.42%2C18.19%206.21%2C11.73%200.96%2C7.56%207.65%2C7.27'%2F%3E%3C%2Fsvg%3E") no-repeat center / contain; }
+.xmas-midnight .label { font-family: 'Newsreader', Georgia, serif; font-weight: 600; font-size: 12pt; line-height: 15.6pt; letter-spacing: 0.1em; text-transform: uppercase; color: #1C1C24; border-top: 0.75pt solid var(--navy); padding-top: 0.09in; }
+.xmas-midnight .by { font-family: 'Newsreader', Georgia, serif; font-weight: 600; font-size: 12pt; line-height: 15.6pt; letter-spacing: 0.1em; text-transform: uppercase; color: #1C1C24; margin-top: 0.08in; }
+.xmas-midnight .cap { position: absolute; display: flex; flex-direction: column; justify-content: flex-end; }
+.xmas-midnight .body { font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: 16pt; line-height: 1.4; margin-top: 0.12in; }
+.xmas-midnight .np { position: absolute; display: flex; flex-direction: column; justify-content: flex-end; }
+.xmas-midnight .np h1 { font-family: 'Gloock', Georgia, serif; font-weight: 400; font-size: 34pt; line-height: 1.06; color: #fff; background-color: #18264A; background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20100%2020'%3E%3Cpolygon%20fill%3D'%23E3B23C'%20points%3D'6.00%2C7.80%206.79%2C9.91%209.04%2C10.01%207.28%2C11.42%207.88%2C13.59%206.00%2C12.34%204.12%2C13.59%204.72%2C11.42%202.96%2C10.01%205.21%2C9.91'%2F%3E%3Cpolygon%20fill%3D'%23E3B23C'%20points%3D'22.00%2C4.00%2022.49%2C5.32%2023.90%2C5.38%2022.80%2C6.26%2023.18%2C7.62%2022.00%2C6.84%2020.82%2C7.62%2021.20%2C6.26%2020.10%2C5.38%2021.51%2C5.32'%2F%3E%3Cpolygon%20fill%3D'%23E3B23C'%20points%3D'38.00%2C8.80%2039.04%2C11.57%2041.99%2C11.70%2039.68%2C13.55%2040.47%2C16.40%2038.00%2C14.76%2035.53%2C16.40%2036.32%2C13.55%2034.01%2C11.70%2036.96%2C11.57'%2F%3E%3Cpolygon%20fill%3D'%23E3B23C'%20points%3D'55.00%2C2.60%2055.59%2C4.18%2057.28%2C4.26%2055.96%2C5.31%2056.41%2C6.94%2055.00%2C6.01%2053.59%2C6.94%2054.04%2C5.31%2052.72%2C4.26%2054.41%2C4.18'%2F%3E%3Cpolygon%20fill%3D'%23E3B23C'%20points%3D'70.00%2C9.20%2070.69%2C11.05%2072.66%2C11.13%2071.12%2C12.36%2071.65%2C14.27%2070.00%2C13.18%2068.35%2C14.27%2068.88%2C12.36%2067.34%2C11.13%2069.31%2C11.05'%2F%3E%3Cpolygon%20fill%3D'%23E3B23C'%20points%3D'81.00%2C2.70%2081.44%2C3.89%2082.71%2C3.94%2081.72%2C4.73%2082.06%2C5.96%2081.00%2C5.26%2079.94%2C5.96%2080.28%2C4.73%2079.29%2C3.94%2080.56%2C3.89'%2F%3E%3Ccircle%20fill%3D'%23E3B23C'%20cx%3D'92'%20cy%3D'10'%20r%3D'7.5'%2F%3E%3Ccircle%20fill%3D'%2318264A'%20cx%3D'95.5'%20cy%3D'7.5'%20r%3D'6.6'%2F%3E%3C%2Fsvg%3E"); background-repeat: no-repeat; background-position: right 0.1in top 0.03in; background-size: 1.4in 0.28in; padding: 0.26in 0.16in; margin-top: 0.1in; }
+.xmas-midnight .edition { position: absolute; border-top: 0.75pt solid var(--navy); padding-top: 0.1in; font-family: 'Newsreader', Georgia, serif; font-weight: 600; font-size: 12pt; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; color: #1C1C24; }
+.xmas-midnight .edition .dot { margin: 0 0.6em; color: #1C1C24; }
+.xmas-midnight .title { position: absolute; display: flex; flex-direction: column; justify-content: flex-end; }
+.xmas-midnight .title h2 { position: relative; font-family: 'Gloock', Georgia, serif; font-weight: 400; font-size: 44pt; line-height: 1.04; color: #1C1C24; margin-top: 0.08in; margin-bottom: 0.1in; }
+.xmas-midnight .title .body { font-size: 17pt; line-height: 1.4; }
+.xmas-midnight .cover-story { position: absolute; display: flex; flex-direction: column; }
+.xmas-midnight .inside { position: absolute; }
+.xmas-midnight .inside-row { display: grid; grid-template-columns: 0.4in 1fr; align-items: baseline; padding: 0.05in 0; border-bottom: 0.75pt solid var(--navy); }
+.xmas-midnight .inside-row .n { font-family: 'Gloock', Georgia, serif; font-weight: 400; font-size: 22pt; line-height: 1; color: #1C1C24; }
+.xmas-midnight .inside-row .t { font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: 15pt; line-height: 1.3; }
+.xmas-midnight .foot { position: absolute; display: flex; justify-content: space-between; align-items: baseline; font-family: 'Newsreader', Georgia, serif; font-weight: 600; font-size: 12pt; line-height: 1.2; letter-spacing: 0.1em; text-transform: uppercase; color: #1C1C24; }
+.xmas-midnight .foot .n { font-family: 'Gloock', Georgia, serif; font-weight: 400; font-size: 18pt; line-height: 1; letter-spacing: 0; color: #1C1C24; }
+.xmas-midnight .letter { position: absolute; display: flex; flex-direction: column; }
+.xmas-midnight .letter h2 { position: relative; font-family: 'Gloock', Georgia, serif; font-weight: 400; font-size: 28pt; line-height: 1.06; color: #1C1C24; margin-top: 0.12in; }
+.xmas-midnight .letter .body { font-size: 16.5pt; margin-top: 0.14in; }
+.xmas-midnight .letter .sign { font-family: 'Gloock', Georgia, serif; font-weight: 400; font-size: 20pt; color: #1C1C24; margin-top: 0.08in; }
+.xmas-midnight .yours, .xmas-midnight .memory { position: absolute; display: flex; flex-direction: column; }
+.xmas-midnight .yours .prompt { font-family: 'Gloock', Georgia, serif; font-weight: 400; font-size: 26pt; line-height: 1.12; color: #1C1C24; margin-top: 0.1in; text-wrap: balance; }
+.xmas-midnight .yours .hint { font-size: 16pt; line-height: 1.4; margin-top: 0.08in; }
+.xmas-midnight .yours .lines, .xmas-midnight .memory .lines { flex: 1 1 auto; margin-top: 0.06in; background-image: repeating-linear-gradient(to bottom, transparent 0, transparent calc(0.42in - 0.75pt), #999 calc(0.42in - 0.75pt), #999 0.42in); }
+.xmas-midnight .memory .prompt { font-family: 'Gloock', Georgia, serif; font-weight: 400; font-size: 22pt; line-height: 1.12; color: #1C1C24; margin-top: 0.1in; }
+.xmas-midnight .offer { position: absolute; display: grid; grid-template-columns: 1fr 1.2in; column-gap: 0.3in; }
+.xmas-midnight .offer h2 { position: relative; font-family: 'Gloock', Georgia, serif; font-weight: 400; font-size: 26pt; line-height: 1.12; color: #1C1C24; margin-top: 0.12in; }
+.xmas-midnight .offer .visit { font-weight: 600; margin-top: 0.06in; }
+.xmas-midnight .qr { width: 1.2in; height: 1.2in; align-self: end; }
+.xmas-midnight .qr svg { width: 100%; height: 100%; display: block; }
+.xmas-midnight .w h2 { position: relative; font-family: 'Gloock', Georgia, serif; font-weight: 400; color: #1C1C24; margin-top: 0.1in; text-wrap: balance; }
+.xmas-midnight .w h2:not(:last-child)::after, .xmas-midnight .title h2::after, .xmas-midnight .letter h2::after { content: ''; position: absolute; left: 0; bottom: -0.065in; width: 0.5in; height: 1pt; background: var(--star); }
+.xmas-midnight .notew .cols h2::after { display: none; }
+.xmas-midnight .w .body { margin-top: 0.12in; }
+.xmas-midnight .across, .xmas-midnight .notew, .xmas-midnight .half { position: absolute; display: flex; flex-direction: column; }
+.xmas-midnight .across .row { flex: 1 1 auto; min-height: 0; display: flex; gap: 0.2in; margin-top: 0.12in; }
+.xmas-midnight .across .row.photo-right { flex-direction: row-reverse; }
+.xmas-midnight .across .row img, .xmas-midnight .half img { display: block; object-fit: cover; flex: none; border-radius: 4pt; outline: 2pt solid var(--star); outline-offset: -5pt; }
+.xmas-midnight .across .row .body { margin-top: 0; flex: 1 1 auto; }
+.xmas-midnight .notew .cols { display: grid; grid-template-columns: 2.6in 1fr; column-gap: 0.2in; align-items: start; }
+.xmas-midnight .notew .stacked .body { max-width: 5.78in; }
+.xmas-midnight .half .after-photo { margin-top: 0.12in; }
+</style>
+</head>
+<body class="xmas xmas-midnight cover-only">
+
+<main id="pages" class="sheets" data-fits="yes" data-look="midnight" data-pages="4">
+<section class="sheet sheet-cover">
+<svg class="decor" data-ornament="treeChildren" viewBox="0 0 1100 673" style="position:absolute;left:1.686in;top:9.765in;width:1.185in;height:0.725in" aria-hidden="true" focusable="false"><image href="decor/card-tree-children.jpg" width="1100" height="673"/></svg><svg class="decor" data-ornament="treeLit" viewBox="0 0 900 723" style="position:absolute;left:3.031in;top:9.765in;width:0.903in;height:0.725in" aria-hidden="true" focusable="false"><image href="decor/tree-lit.jpg" width="900" height="723"/></svg><svg class="decor" data-ornament="sledHolly" viewBox="0 0 1100 663" style="position:absolute;left:5.396in;top:9.872in;width:1.026in;height:0.618in" aria-hidden="true" focusable="false"><image href="decor/sled-holly.jpg" width="1100" height="663"/></svg><svg class="decor" data-ornament="robins" viewBox="0 0 1100 640" style="position:absolute;left:6.582in;top:9.872in;width:1.063in;height:0.618in" aria-hidden="true" focusable="false"><image href="decor/card-birds.jpg" width="1100" height="640"/></svg><svg class="decor" data-ornament="hollyBranch" viewBox="0 0 1050 607" style="position:absolute;left:5.459in;top:3.98in;width:0.503in;height:0.291in" aria-hidden="true" focusable="false"><image href="decor/holly-branch.jpg" width="1050" height="607"/></svg><div class="address-area"><p class="screen-only address-shape">Grandma Jo<span class="address-bar"></span><span class="address-bar short"></span></p></div>
+<div class="np" style="left:4.95in;top:0.3in;width:2.89in;height:2.62in"><p class="label">Christmas 2026</p><h1>Grandma Jo’s Post</h1></div>
+<p class="edition" style="left:0.66in;top:3in;width:7.18in;height:0.46in">Merry Christmas<span class="dot">·</span>Printed for Grandma Jo<span class="dot">·</span>seven moments</p>
+<img class="photo" src="demo/photo-7.jpg" alt="The first snow" style="left:0.66in;top:3.88in;width:2.62in;height:3.24in;object-position:50% 30%">
+<div class="title" style="left:3.58in;top:3.88in;width:4.26in;height:3.24in">
+<p class="label">A keepsake for Christmas 2026</p>
+<h2>Christmas together</h2>
+<p class="body">Seven moments from seven of us, for you to keep this Christmas.</p>
+</div>
+<div class="cover-story w" style="left:0.66in;top:7.54in;width:4.3in;height:3.05in"><p class="label">On the cover</p>
+<h2 style="font-size:23pt;line-height:25.76pt">The first snow</h2>
+<p class="body lines" style="font-size:16pt;line-height:22.4pt">Mia caught snowflakes on her tongue and would not come inside until her mittens were soaked.</p>
+<p class="by">From Dad</p></div>
+<div class="inside" style="left:5.2in;top:7.54in;width:2.64in;height:3.05in">
+<p class="label">Inside</p>
+<div class="inside-row"><span class="n">2</span><span class="t" dir="auto">Pat’s letter, photos and notes</span></div><div class="inside-row"><span class="n">3</span><span class="t" dir="auto">Photos and notes</span></div><div class="inside-row"><span class="n">4</span><span class="t" dir="auto">Photos and a Christmas memory to share</span></div>
+</div>
+</section>
+</main>
+</body>
+</html>

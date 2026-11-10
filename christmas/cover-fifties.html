@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Grandma Jo’s Post, Christmas 2026</title>
+
+<style>@font-face{font-family:'Norican';font-style:normal;font-weight:400;font-display:block;ascent-override:90%;descent-override:35%;line-gap-override:0%;src:url('fonts/norican-latin-400-normal.woff2') format('woff2');}@font-face{font-family:'Corben';font-style:normal;font-weight:400;font-display:block;ascent-override:92%;descent-override:30%;line-gap-override:0%;src:url('fonts/corben-latin-400-normal.woff2') format('woff2');}@font-face{font-family:'Corben';font-style:normal;font-weight:700;font-display:block;ascent-override:92%;descent-override:30%;line-gap-override:0%;src:url('fonts/corben-latin-700-normal.woff2') format('woff2');}@font-face{font-family:'Newsreader';font-style:normal;font-weight:500;font-display:block;src:url('fonts/newsreader-latin-500-normal.woff2') format('woff2');}@font-face{font-family:'Work Sans';font-style:normal;font-weight:600;font-display:block;src:url('fonts/work-sans-latin-600-normal.woff2') format('woff2');}
+@page { size: letter; margin: 0; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { background: #525659; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+h1, h2, h3, p, ol, ul, figure { margin: 0; }
+/* Each line of words takes its direction from its own first letter, so a note in Arabic or Hebrew reads right to left
+   and lines up on the right (bug hunt 15 October 2026, CONTENT-12). It needs text-align left at its default, start. */
+.sheet :is(p, h1, h2, h3, li) { unicode-bidi: plaintext; }
+/* A caption prints each line the family typed on its own line (CONTENT-21), and with plaintext each line takes its own
+   direction. foldLines (src/lib/words.ts) has already dropped blank lines, and countLines counts every line. */
+.sheet .lines { white-space: pre-line; }
+ul { padding: 0; list-style: none; }
+.sheets { display: flex; flex-direction: column; align-items: center; gap: 24px; padding: 24px 12px; }
+.sheet { position: relative; width: 8.5in; height: 11in; background: #fff; box-shadow: 0 2px 14px rgba(0,0,0,0.45); }
+.address-area { position: absolute; left: 0.4in; top: 0.1in; width: 4.35in; height: 2.85in; }
+@font-face { font-family: "Toolbar Sans"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("fonts/inter-tight-latin-wght-normal.woff2") format("woff2"); }
+.toolbar { background: #0b1020; color: #fff; padding: 12px 16px; font-family: "Toolbar Sans", "Segoe UI", system-ui, sans-serif; font-size: 13pt; line-height: 1.5; }
+.toolbar p { max-width: 8.5in; margin: 0 auto; }
+.toolbar a { color: #fff; font-weight: 600; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+.toolbar a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+/* On screen the window shows the address's shape where the printed address goes: the sample's pretend address in ink,
+   a family's own as grey lines (senior design review, docs/PLAN-SMALL-LIFTS-2026-10.md; before it a grey box, and
+   before that a dashed black one, W35, R-12). Print keeps it blank. */
+@media screen {
+  .address-area { padding: 1.1in 0.35in 0; }
+  .address-area .address-shape { color: #5a6278; }
+  .address-area .address-bar { display: block; width: 2.4in; height: 0.14in; margin-top: 0.12in; background: #dfe3ea; }
+  .address-area .address-bar.short { width: 1.6in; }
+}
+/* The words take the look's own face from its .sheet, never a system font (Arial stood out inside every look: whole-site
+   review of 28 October 2026, D-5). */
+.address-area p { margin: 0; font-family: inherit; font-size: 12pt; line-height: 1.35; }
+@media screen and (max-width: 860px) { .sheets { zoom: 0.8; } }
+@media screen and (max-width: 700px) { .sheets { zoom: 0.66; } }
+@media screen and (max-width: 560px) { .sheets { zoom: 0.52; } }
+@media screen and (max-width: 460px) { .sheets { zoom: 0.44; } }
+@media screen and (max-width: 400px) { .sheets { zoom: 0.42; } }
+@media screen and (max-width: 340px) { .sheets { zoom: 0.36; } }
+body.cover-only { background: #fff; }
+body.full-size .sheets { zoom: 1; overflow-x: auto; align-items: safe center; }
+/* A box that scrolls sideways is a Tab stop in Chrome, so it needs a ring. White, as the toolbar link's: the Calm cobalt
+   on this dark grey page is about 1.2:1, under the 3:1 a ring needs. Drawn inside, as the box is the screen's width. */
+body.full-size .sheets:focus-visible { outline: 2px solid #fff; outline-offset: -4px; }
+body.cover-only .sheets { padding: 0; zoom: 1; }
+body.cover-only .sheet { box-shadow: none; }
+/* A band left empty on purpose (docs/PLAN-EXTRAS-AND-COLOR-2026-10.md part 2) is white space: no look's feature rule,
+   fill or ornament, whatever its own stylesheet gives a feature. */
+.fill > .feature.f-blank { border: 0 !important; background: none !important; box-shadow: none !important; }
+.fill > .feature.f-blank::before, .fill > .feature.f-blank::after { content: none !important; }
+/* The family's own words (src/lib/spare-words.ts): the look's own body face and ink, 16 pt, each typed line its own. */
+.f-words .f-words-text { font-size: 16pt; line-height: 22pt; margin-top: 0.08in; overflow-wrap: anywhere; text-wrap: pretty; }
+.f-words .f-label + .f-words-text { margin-top: 0.12in; }
+@media print {
+  body { background: #fff; }
+  .screen-only { display: none !important; }
+  .sheets { display: block; padding: 0; zoom: 1; }
+  .sheet { box-shadow: none; break-after: page; page-break-after: always; }
+  .sheet:last-child { break-after: auto; page-break-after: auto; }
+}
+
+.xmas-fifties .sheet { --pine: #1E5B3A; font-family: 'Newsreader', Georgia, serif; font-weight: 500; color: #141414; font-variant-ligatures: no-common-ligatures no-discretionary-ligatures; }
+.xmas-fifties .photo { position: absolute; display: block; object-fit: cover; box-sizing: border-box; border: 5pt solid #fff; border-radius: 10pt; outline: 0.5pt solid #9a9a9a; outline-offset: -0.5pt; }
+.xmas-fifties .label { font-family: 'Work Sans', Arial, sans-serif; font-weight: 600; font-size: 12pt; line-height: 15.6pt; letter-spacing: 0.08em; text-transform: uppercase; color: #141414; border-top: 0.75pt solid var(--pine); padding-top: 0.09in; }
+.xmas-fifties .by { font-family: 'Work Sans', Arial, sans-serif; font-weight: 600; font-size: 12pt; line-height: 15.6pt; letter-spacing: 0.08em; text-transform: uppercase; color: #141414; margin-top: 0.08in; }
+.xmas-fifties .cap { position: absolute; display: flex; flex-direction: column; justify-content: flex-end; }
+.xmas-fifties .body { font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 16pt; line-height: 1.4; margin-top: 0.12in; }
+.xmas-fifties .np { position: absolute; display: flex; flex-direction: column; justify-content: flex-end; }
+.xmas-fifties .np h1 { position: relative; font-family: 'Norican', cursive; font-weight: 400; font-size: 44pt; line-height: 1.12; color: #fff; background: #A01B28; padding: 0.12000000000000001in 0.16in; margin-top: 0.08in; margin-bottom: 0.36in; border-radius: 6pt; }
+.xmas-fifties .np h1::after { content: ''; position: absolute; top: 100%; right: 0.24in; width: 0.68in; height: 0.36in; background: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2090%2048'%3E%3Cline%20x1%3D'14'%20y1%3D'0'%20x2%3D'14'%20y2%3D'3'%20stroke%3D'%23141414'%20stroke-width%3D'0.9'%2F%3E%3Crect%20fill%3D'%238A8A8A'%20x%3D'11'%20y%3D'3'%20width%3D'6'%20height%3D'4'%2F%3E%3Ccircle%20fill%3D'%23D4A537'%20cx%3D'14'%20cy%3D'18'%20r%3D'12'%2F%3E%3Ccircle%20fill%3D'%23fff'%20cx%3D'9.5'%20cy%3D'13.5'%20r%3D'2.6'%2F%3E%3Cline%20x1%3D'45'%20y1%3D'0'%20x2%3D'45'%20y2%3D'18'%20stroke%3D'%23141414'%20stroke-width%3D'0.9'%2F%3E%3Crect%20fill%3D'%238A8A8A'%20x%3D'42'%20y%3D'18'%20width%3D'6'%20height%3D'4'%2F%3E%3Ccircle%20fill%3D'%231E5B3A'%20cx%3D'45'%20cy%3D'33'%20r%3D'12'%2F%3E%3Ccircle%20fill%3D'%23fff'%20cx%3D'40.5'%20cy%3D'28.5'%20r%3D'2.6'%2F%3E%3Cline%20x1%3D'76'%20y1%3D'0'%20x2%3D'76'%20y2%3D'9'%20stroke%3D'%23141414'%20stroke-width%3D'0.9'%2F%3E%3Crect%20fill%3D'%238A8A8A'%20x%3D'73'%20y%3D'9'%20width%3D'6'%20height%3D'4'%2F%3E%3Ccircle%20fill%3D'%23B8202E'%20cx%3D'76'%20cy%3D'24'%20r%3D'12'%2F%3E%3Ccircle%20fill%3D'%23fff'%20cx%3D'71.5'%20cy%3D'19.5'%20r%3D'2.6'%2F%3E%3C%2Fsvg%3E") no-repeat center / contain; }
+.xmas-fifties .edition { position: absolute; border-top: 0.75pt solid var(--pine); padding-top: 0.1in; font-family: 'Work Sans', Arial, sans-serif; font-weight: 600; font-size: 12pt; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; color: #141414; }
+.xmas-fifties .edition .dot { margin: 0 0.6em; color: #141414; }
+.xmas-fifties .title { position: absolute; display: flex; flex-direction: column; justify-content: flex-end; }
+.xmas-fifties .title h2 { position: relative; font-family: 'Corben', Georgia, serif; font-weight: 700; font-size: 38pt; line-height: 1.1; color: #141414; margin-top: 0.14in; margin-bottom: 0.04in; }
+.xmas-fifties .title .body { font-size: 17pt; }
+.xmas-fifties .cover-story { position: absolute; display: flex; flex-direction: column; }
+.xmas-fifties .inside { position: absolute; }
+.xmas-fifties .inside-row { display: grid; grid-template-columns: 0.4in 1fr; align-items: baseline; padding: 0.05in 0; border-bottom: 0.75pt solid var(--pine); }
+.xmas-fifties .inside-row .n { font-family: 'Corben', Georgia, serif; font-weight: 700; font-size: 20pt; line-height: 1; color: #141414; }
+.xmas-fifties .inside-row .t { font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 15pt; line-height: 1.3; }
+.xmas-fifties .foot { position: absolute; display: flex; justify-content: space-between; align-items: baseline; font-family: 'Work Sans', Arial, sans-serif; font-weight: 600; font-size: 12pt; line-height: 1.2; letter-spacing: 0.08em; text-transform: uppercase; color: #141414; }
+.xmas-fifties .foot span:nth-child(2)::before { content: ''; display: inline-block; width: 0.2in; height: 0.25in; margin-right: 0.08in; vertical-align: -0.04in; background: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2024%2030'%3E%3Crect%20fill%3D'%235A3A22'%20x%3D'10'%20y%3D'24'%20width%3D'4'%20height%3D'6'%2F%3E%3Cpolygon%20fill%3D'%231E5B3A'%20points%3D'12%2C12%2024%2C25%200%2C25'%2F%3E%3Cpolygon%20fill%3D'%231E5B3A'%20points%3D'12%2C6%2021%2C17%203%2C17'%2F%3E%3Cpolygon%20fill%3D'%231E5B3A'%20points%3D'12%2C0%2018%2C10%206%2C10'%2F%3E%3C%2Fsvg%3E") no-repeat center / contain; }
+.xmas-fifties .foot .n { position: relative; z-index: 0; display: inline-block; min-width: 0.3in; text-align: center; font-family: 'Corben', Georgia, serif; font-weight: 700; font-size: 13pt; line-height: 1; letter-spacing: 0; color: #141414; }
+.xmas-fifties .foot .n::before { content: ''; position: absolute; z-index: -1; left: 50%; top: 50%; width: 0.3in; height: 0.3in; margin: -0.15in 0 0 -0.15in; background: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2040%2040'%3E%3Cpolygon%20fill%3D'%23D4A537'%20points%3D'20.00%2C0.00%2025.17%2C7.53%2034.14%2C5.86%2032.47%2C14.83%2040.00%2C20.00%2032.47%2C25.17%2034.14%2C34.14%2025.17%2C32.47%2020.00%2C40.00%2014.83%2C32.47%205.86%2C34.14%207.53%2C25.17%200.00%2C20.00%207.53%2C14.83%205.86%2C5.86%2014.83%2C7.53'%2F%3E%3C%2Fsvg%3E") no-repeat center / contain; }
+.xmas-fifties .letter { position: absolute; display: flex; flex-direction: column; }
+.xmas-fifties .letter h2 { position: relative; font-family: 'Corben', Georgia, serif; font-weight: 700; font-size: 24pt; line-height: 1.12; color: #141414; margin-top: 0.12in; }
+.xmas-fifties .letter .body { font-size: 16.5pt; margin-top: 0.1in; }
+.xmas-fifties .letter .sign { font-family: 'Corben', Georgia, serif; font-weight: 400; font-size: 18pt; color: #141414; margin-top: 0.08in; }
+.xmas-fifties .yours, .xmas-fifties .memory { position: absolute; display: flex; flex-direction: column; }
+.xmas-fifties .yours .prompt { font-family: 'Corben', Georgia, serif; font-weight: 700; font-size: 22pt; line-height: 1.16; color: #141414; margin-top: 0.1in; text-wrap: balance; }
+.xmas-fifties .yours .hint { font-size: 16pt; line-height: 1.4; margin-top: 0.08in; }
+.xmas-fifties .yours .lines, .xmas-fifties .memory .lines { flex: 1 1 auto; margin-top: 0.06in; background-image: repeating-linear-gradient(to bottom, transparent 0, transparent calc(0.42in - 0.75pt), #999 calc(0.42in - 0.75pt), #999 0.42in); }
+.xmas-fifties .memory .prompt { font-family: 'Corben', Georgia, serif; font-weight: 700; font-size: 19pt; line-height: 1.16; color: #141414; margin-top: 0.1in; }
+.xmas-fifties .offer { position: absolute; display: grid; grid-template-columns: 1fr 1.2in; column-gap: 0.3in; }
+.xmas-fifties .offer h2 { position: relative; font-family: 'Corben', Georgia, serif; font-weight: 700; font-size: 22pt; line-height: 1.16; color: #141414; margin-top: 0.12in; }
+.xmas-fifties .offer .visit { font-weight: 500; margin-top: 0.06in; }
+.xmas-fifties .qr { width: 1.2in; height: 1.2in; align-self: end; }
+.xmas-fifties .qr svg { width: 100%; height: 100%; display: block; }
+.xmas-fifties .w h2 { position: relative; font-family: 'Corben', Georgia, serif; font-weight: 700; color: #141414; margin-top: 0.1in; text-wrap: balance; }
+.xmas-fifties .w .body { margin-top: 0.12in; }
+.xmas-fifties .across, .xmas-fifties .notew, .xmas-fifties .half { position: absolute; display: flex; flex-direction: column; }
+.xmas-fifties .across .row { flex: 1 1 auto; min-height: 0; display: flex; gap: 0.2in; margin-top: 0.12in; }
+.xmas-fifties .across .row.photo-right { flex-direction: row-reverse; }
+.xmas-fifties .across .row img, .xmas-fifties .half img { display: block; object-fit: cover; flex: none; box-sizing: border-box; border: 5pt solid #fff; border-radius: 10pt; outline: 0.5pt solid #9a9a9a; outline-offset: -0.5pt; }
+.xmas-fifties .across .row .body { margin-top: 0; flex: 1 1 auto; }
+.xmas-fifties .notew .cols { display: grid; grid-template-columns: 2.6in 1fr; column-gap: 0.2in; align-items: start; }
+.xmas-fifties .notew .stacked .body { max-width: 5.78in; }
+.xmas-fifties .half .after-photo { margin-top: 0.12in; }
+</style>
+</head>
+<body class="xmas xmas-fifties cover-only">
+
+<main id="pages" class="sheets" data-fits="yes" data-look="fifties" data-pages="4">
+<section class="sheet sheet-cover">
+<svg class="decor" data-ornament="treeCarried" viewBox="0 0 900 634" style="position:absolute;left:1.124in;top:9.713in;width:1.103in;height:0.777in" aria-hidden="true" focusable="false"><image href="decor/tree-carried.jpg" width="900" height="634"/></svg><svg class="decor" data-ornament="sleigh" viewBox="0 0 1950 718" style="position:absolute;left:2.387in;top:9.713in;width:2.11in;height:0.777in" aria-hidden="true" focusable="false"><image href="decor/sleigh.jpg" width="1950" height="718"/></svg><svg class="decor" data-ornament="treeTrimming" viewBox="0 0 900 685" style="position:absolute;left:5.583in;top:9.809in;width:0.895in;height:0.681in" aria-hidden="true" focusable="false"><image href="decor/tree-trimming.jpg" width="900" height="685"/></svg><svg class="decor" data-ornament="treeMarket" viewBox="0 0 900 748" style="position:absolute;left:6.638in;top:9.809in;width:0.819in;height:0.681in" aria-hidden="true" focusable="false"><image href="decor/tree-market.jpg" width="900" height="748"/></svg><svg class="decor" data-ornament="hollyBranch" viewBox="0 0 1050 607" style="position:absolute;left:5.363in;top:3.98in;width:0.693in;height:0.401in" aria-hidden="true" focusable="false"><image href="decor/holly-branch.jpg" width="1050" height="607"/></svg><div class="address-area"><p class="screen-only address-shape">Grandma Jo<span class="address-bar"></span><span class="address-bar short"></span></p></div>
+<div class="np" style="left:4.95in;top:0.3in;width:2.89in;height:2.62in"><p class="label">Christmas 2026</p><h1>Grandma Jo’s Post</h1></div>
+<p class="edition" style="left:0.66in;top:3in;width:7.18in;height:0.46in">Merry Christmas<span class="dot">·</span>Printed for Grandma Jo<span class="dot">·</span>seven moments</p>
+<img class="photo" src="demo/photo-7.jpg" alt="The first snow" style="left:0.66in;top:3.88in;width:2.62in;height:3.24in;object-position:50% 30%">
+<div class="title" style="left:3.58in;top:3.88in;width:4.26in;height:3.24in">
+<p class="label">A keepsake for Christmas 2026</p>
+<h2>Christmas together</h2>
+<p class="body">Seven moments from seven of us, for you to keep this Christmas.</p>
+</div>
+<div class="cover-story w" style="left:0.66in;top:7.54in;width:4.3in;height:3.05in"><p class="label">On the cover</p>
+<h2 style="font-size:19pt;line-height:22.04pt">The first snow</h2>
+<p class="body lines" style="font-size:16pt;line-height:22.4pt">Mia caught snowflakes on her tongue and would not come inside until her mittens were soaked.</p>
+<p class="by">From Dad</p></div>
+<div class="inside" style="left:5.2in;top:7.54in;width:2.64in;height:3.05in">
+<p class="label">Inside</p>
+<div class="inside-row"><span class="n">2</span><span class="t" dir="auto">Pat’s letter, photos and notes</span></div><div class="inside-row"><span class="n">3</span><span class="t" dir="auto">Photos and notes</span></div><div class="inside-row"><span class="n">4</span><span class="t" dir="auto">Photos and a Christmas memory to share</span></div>
+</div>
+</section>
+</main>
+</body>
+</html>
